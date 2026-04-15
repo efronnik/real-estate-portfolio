@@ -117,7 +117,12 @@
       <section id="oferta" class="list-section">
         <h3>Co moge dla Ciebie zrobic?</h3>
         <div class="offer-shell">
-          <div class="offer-backdrop">
+          <div
+            class="offer-backdrop"
+            @touchstart.passive="handleOfferTouchStart"
+            @touchend.passive="handleOfferTouchEnd"
+            @touchcancel="resetOfferTouchState"
+          >
             <article
               v-for="(offer, idx) in offerItems"
               :key="`offer-card-${idx}`"
@@ -249,7 +254,7 @@
         </div>
         <div class="footer-bottom">
           <p class="footer-powered">Powered by Patrycja Szewczyk</p>
-          <p class="footer-copy">Copyright © {{ new Date().getFullYear() }} | Privacy Policy</p>
+          <p class="footer-copy">Copyright © {{ getYear() }} | Privacy Policy</p>
           <div class="footer-socials" aria-label="Social links">
             <a class="footer-social-link footer-social-icon" href="https://www.facebook.com/" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" role="img" focusable="false" aria-hidden="true">
@@ -287,6 +292,8 @@ const isCommissionOpen = ref(false)
 const offerIndex = ref(0)
 const proofSectionRef = ref(null)
 const methodSectionRef = ref(null)
+const offerTouchStartX = ref(null)
+const offerTouchStartY = ref(null)
 const hasStatsAnimated = ref(false)
 const methodProgressValues = ref([])
 const animatedStats = ref({
@@ -476,7 +483,45 @@ const handleOfferCardClick = (idx) => {
     nextOffer()
     return
   }
-  if (offset !== 0) goToOffer(idx)
+  if (offset === 0) {
+    nextOffer()
+    return
+  }
+  goToOffer(idx)
+}
+
+const handleOfferTouchStart = (event) => {
+  const touch = event.changedTouches?.[0]
+  if (!touch) return
+  offerTouchStartX.value = touch.clientX
+  offerTouchStartY.value = touch.clientY
+}
+
+const handleOfferTouchEnd = (event) => {
+  const touch = event.changedTouches?.[0]
+  if (!touch) return
+  if (offerTouchStartX.value === null || offerTouchStartY.value === null) return
+
+  const deltaX = touch.clientX - offerTouchStartX.value
+  const deltaY = touch.clientY - offerTouchStartY.value
+  const absDeltaX = Math.abs(deltaX)
+  const absDeltaY = Math.abs(deltaY)
+  const swipeThreshold = 36
+
+  if (absDeltaX > absDeltaY && absDeltaX >= swipeThreshold) {
+    if (deltaX < 0) {
+      nextOffer()
+    } else {
+      prevOffer()
+    }
+  }
+
+  resetOfferTouchState()
+}
+
+const resetOfferTouchState = () => {
+  offerTouchStartX.value = null
+  offerTouchStartY.value = null
 }
 
 const handleLogoError = (event) => {
@@ -486,6 +531,8 @@ const handleLogoError = (event) => {
   img.dataset.retryDone = "1"
   img.src = `/images/compass-log.png?v=2&retry=${Date.now()}`
 }
+
+const getYear = () => new Date().getFullYear()
 
 onMounted(() => {
   const section = proofSectionRef.value

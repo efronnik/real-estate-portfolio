@@ -570,6 +570,7 @@ body,
   padding: 0 1rem;
   overflow: hidden;
   border: 0;
+  touch-action: pan-y;
 }
 
 .offer-backdrop::before {
@@ -1705,9 +1706,28 @@ body,
 }
 
 @media (max-width: 767px) {
+  :root {
+    --m-space-xs: 0.4rem;
+    --m-space-sm: 0.7rem;
+    --m-space-md: 1rem;
+    --m-space-lg: 1.4rem;
+  }
+
   .cover-hero,
   .cover-overlay {
     min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .cover-hero {
+    width: 100vw;
+  }
+
+  .cover-hero::before {
+    inset: 0;
+    transform: none;
+    background-size: cover;
+    background-position: center center;
   }
 
   .brands-grid,
@@ -1729,29 +1749,94 @@ body,
     padding-right: 1rem;
   }
 
+  .about-section,
+  .proof-section,
+  .method-section,
+  .competence-section,
+  .list-section,
+  .page-footer {
+    padding-top: var(--m-space-lg);
+    padding-bottom: var(--m-space-lg);
+  }
+
   .cover-overlay h1 {
-    font-size: clamp(2.2rem, 11vw, 3.2rem);
+    margin: 0 0 0.55rem;
+    font-size: clamp(2.25rem, 10.2vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: 0.02em;
   }
 
   .cover-main {
-    transform: translateY(-5vh);
+    width: min(92vw, 540px);
+    transform: translateY(-7vh);
+    padding: 0 0.5rem;
+  }
+
+  .cover-overlay p {
+    max-width: 24ch;
+    margin: 0 auto;
+    font-size: clamp(0.95rem, 3.9vw, 1.15rem);
+    line-height: 1.35;
+    letter-spacing: 0.12em;
+    text-wrap: balance;
+  }
+
+  .hero-compass-logo {
+    width: clamp(190px, 54vw, 260px);
+    margin-top: 1rem;
+  }
+
+  .about-section {
+    height: 100vh;
+    min-height: 100vh;
+    height: 100dvh;
+    min-height: 100dvh;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    overflow: hidden;
   }
 
   .about-layout {
     grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) minmax(240px, 42vh);
     min-height: 0;
+    height: 100%;
+    gap: 0.8rem;
   }
 
   .about-copy {
-    padding-top: 4.8rem;
+    margin-top: 7.2rem;
+    padding-top: 0;
+    max-height: calc(100% - 7.2rem);
+    overflow: auto;
+    padding-right: 0.2rem;
+  }
+
+  .about-copy p + p {
+    margin-top: var(--m-space-md);
+  }
+
+  .about-watermark {
+    top: 1.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(3.2rem, 16vw, 5rem);
+    line-height: 0.9;
+    white-space: nowrap;
+    text-align: center;
   }
 
   .about-figure {
-    min-height: 460px;
+    min-height: 0;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center 22%;
+    border-radius: 0;
   }
 
   .proof-section {
-    padding: 0 1rem 1rem;
+    padding: 0 1rem var(--m-space-lg);
   }
 
   .proof-top {
@@ -1762,8 +1847,9 @@ body,
 
   .proof-stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    padding: 1.8rem 0.9rem 1rem;
-    gap: 0.5rem;
+    padding: 1.15rem 0.65rem 0.7rem;
+    gap: 0.3rem;
+    align-items: start;
   }
 
   .proof-stats h3 {
@@ -1771,12 +1857,31 @@ body,
     font-size: clamp(1.8rem, 8vw, 2.6rem);
   }
 
-  .proof-stats article:nth-child(4),
-  .proof-stats article:nth-child(5) {
-    border-top: 1px solid #d6ccbc;
+  .proof-stats article {
+    padding: 0.2rem 0.35rem 0.4rem;
   }
 
-  .proof-stats article:nth-child(4) {
+  .proof-stats strong {
+    font-size: clamp(2rem, 10vw, 2.6rem);
+    line-height: 0.95;
+  }
+
+  .proof-stats span {
+    margin-top: 0.32rem;
+    font-size: clamp(0.64rem, 3.4vw, 0.92rem);
+    line-height: 1.16;
+    letter-spacing: 0.04em;
+  }
+
+  .stat-commission-toggle em {
+    margin-top: 0.38rem;
+    font-size: clamp(0.54rem, 2.7vw, 0.66rem);
+    line-height: 1.18;
+    letter-spacing: 0.02em;
+  }
+
+  .proof-stats article {
+    border-top: none;
     border-left: none;
   }
 
@@ -1784,22 +1889,98 @@ body,
     text-align: left;
   }
 
+  #oferta h3 {
+    margin: 0 auto var(--m-space-md);
+    width: calc(100% - 1rem);
+    padding: 0.35rem 0.7rem 0.45rem;
+    font-size: clamp(2.05rem, 10.4vw, 2.9rem);
+    line-height: 0.98;
+    letter-spacing: 0.03em;
+    text-align: left;
+  }
+
+  #oferta.list-section {
+    min-height: 100vh;
+    min-height: 100dvh;
+    height: 100vh;
+    height: 100dvh;
+    padding-top: var(--m-space-md);
+    padding-bottom: var(--m-space-lg);
+    display: flex;
+    flex-direction: column;
+  }
+
+  #oferta .offer-shell {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .offer-backdrop {
+    min-height: 0;
+    flex: 1;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .offer-card-center {
+    width: min(460px, 100%);
+    min-height: 270px;
+    padding: 1.2rem 1rem;
+  }
+
+  .offer-card-center h4 {
+    font-size: clamp(1.95rem, 8.2vw, 2.4rem);
+    line-height: 1.08;
+  }
+
+  .offer-card p {
+    font-size: clamp(1.14rem, 4.9vw, 1.4rem);
+    line-height: 1.36;
+    max-width: 30ch;
+  }
+
+  .offer-arrows {
+    margin-top: var(--m-space-sm);
+    gap: 0.7rem;
+  }
+
+  .offer-arrows button {
+    width: 66px;
+    height: 66px;
+  }
+
+  .offer-proof-copy {
+    margin-top: var(--m-space-sm);
+    font-size: clamp(1.48rem, 6.8vw, 1.95rem);
+    line-height: 1.28;
+    text-align: center;
+  }
+
+  .offer-proof-copy p {
+    max-width: 28ch;
+    margin: 0 auto;
+  }
+
   .offer-carousel {
     gap: 0.75rem;
   }
 
   .method-shell-head {
-    margin-bottom: 1.2rem;
+    margin-bottom: var(--m-space-sm);
   }
 
   .method-shell h3 {
-    font-size: clamp(2.2rem, 12vw, 3.1rem);
+    font-size: clamp(1.9rem, 10.2vw, 2.55rem);
+    line-height: 0.98;
+    letter-spacing: 0.02em;
   }
 
   .method-step,
   .method-step.reverse {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: var(--m-space-sm);
   }
 
   .method-step.reverse .method-step-art,
@@ -1808,59 +1989,177 @@ body,
   }
 
   .method-step-art {
-    min-height: 130px;
+    min-height: 110px;
   }
 
   .method-step-art img {
-    width: 170px;
-    max-height: 150px;
+    width: min(160px, 52vw);
+    max-height: 140px;
+  }
+
+  .method-step-copy small {
+    margin-bottom: 0.15rem;
+    font-size: clamp(1.75rem, 7.2vw, 2.25rem);
+    line-height: 0.95;
   }
 
   .method-step-copy h4 {
-    font-size: clamp(1.85rem, 8.6vw, 2.7rem);
+    font-size: clamp(1.15rem, 7.6vw, 2rem);
+    line-height: 1.08;
   }
 
   .method-step-copy p {
-    font-size: clamp(1rem, 4.7vw, 1.25rem);
-    line-height: 1.4;
+    margin-top: var(--m-space-xs);
+    font-size: clamp(0.96rem, 4.5vw, 1.2rem);
+    line-height: 1.35;
   }
 
   .method-progress-line {
-    height: 20px;
+    margin-top: var(--m-space-sm);
+    height: 15px;
   }
 
   .competence-section {
-    padding-top: 2.6rem;
+    height: 100vh;
+    min-height: 100vh;
+    height: 100dvh;
+    min-height: 100dvh;
+    padding-top: var(--m-space-lg);
+    padding-bottom: var(--m-space-lg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 
   .competence-awards {
     grid-template-columns: 1fr;
-    gap: 1.1rem;
+    gap: var(--m-space-md);
+    margin-top: var(--m-space-md);
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    padding-right: 0.2rem;
+  }
+
+  .competence-intro {
+    flex: 0 0 auto;
+  }
+
+  .competence-intro h3 {
+    font-size: clamp(1.95rem, 10vw, 2.8rem);
+    line-height: 1.03;
+  }
+
+  .competence-awards h4 {
+    font-size: clamp(2rem, 8.8vw, 2.75rem);
+    line-height: 1.03;
+  }
+
+  .competence-awards p {
+    font-size: clamp(1.15rem, 4.7vw, 1.35rem);
+    line-height: 1.3;
   }
 
   .cover-tags {
-    bottom: 1.6rem;
-    font-size: 0.9rem;
-    letter-spacing: 0.09em;
+    width: calc(100% - 2rem);
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 1.25rem;
+    justify-content: space-between;
+    gap: 0.4rem;
+    font-size: clamp(0.78rem, 3.6vw, 0.95rem);
+    letter-spacing: 0.08em;
+  }
+
+  .cover-tags span {
+    white-space: nowrap;
+    text-align: center;
   }
 
   .footer-top {
     grid-template-columns: 1fr;
-    gap: 1.1rem;
+    gap: var(--m-space-md);
+    text-align: center;
+  }
+
+  .footer-brand h3 {
+    transform: none;
+    font-size: clamp(2.65rem, 12vw, 3.5rem);
+    line-height: 0.95;
+    text-align: center;
+  }
+
+  .footer-brand-role {
+    transform: none;
+    margin-top: 0.35rem;
+    font-size: clamp(0.56rem, 2.9vw, 0.76rem);
+    letter-spacing: 0.11em;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .footer-brand-logo {
+    width: min(240px, 74vw);
+    max-width: 100%;
+    margin: 0.7rem auto 0;
   }
 
   .footer-contact-grid {
     grid-template-columns: 1fr;
     max-width: none;
+    gap: var(--m-space-sm);
+    justify-items: center;
+  }
+
+  .footer-contact-item,
+  .footer-phone {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    gap: 0.55rem;
+    text-align: center;
+  }
+
+  .footer-contact-grid a,
+  .footer-phone a {
+    font-size: clamp(0.92rem, 5.2vw, 1.22rem);
+    line-height: 1.24;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .footer-icon-label {
+    width: 34px;
+    height: 24px;
   }
 
   .footer-phone {
     padding-top: 0;
+    margin-top: 0;
   }
 
   .footer-bottom {
     grid-template-columns: 1fr;
-    gap: 0.7rem;
+    gap: var(--m-space-sm);
+    margin-top: var(--m-space-md);
+    padding-top: var(--m-space-md);
+    text-align: center;
+  }
+
+  .footer-powered,
+  .footer-copy {
+    font-size: clamp(0.82rem, 3.9vw, 1rem);
+    line-height: 1.28;
+  }
+
+  .footer-copy {
+    white-space: normal;
+  }
+
+  .footer-socials {
+    justify-content: center;
   }
 }
 
@@ -1934,7 +2233,7 @@ body,
     overflow-wrap: normal;
     word-break: normal;
     white-space: nowrap;
-    text-align: left;
+    text-align: center;
   }
 
   .footer-icon-label {
@@ -1960,5 +2259,103 @@ body,
 
   .footer-socials {
     justify-self: end;
+  }
+}
+
+@media (min-width: 1440px) {
+  .about-layout,
+  .method-shell,
+  .proof-stats-panel,
+  .proof-bottom,
+  .offer-shell,
+  .footer-top,
+  .footer-bottom {
+    width: min(1280px, 100%);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .about-section,
+  .proof-section,
+  .method-section,
+  .competence-section,
+  .list-section,
+  .page-footer {
+    padding-left: 2.6rem;
+    padding-right: 2.6rem;
+  }
+
+  .cover-main {
+    width: min(980px, calc(100% - 4rem));
+  }
+
+  .cover-tags {
+    width: min(900px, calc(100% - 4rem));
+  }
+
+  #oferta h3 {
+    font-size: clamp(3.1rem, 4.5vw, 4.6rem);
+  }
+
+  .offer-card-center {
+    width: clamp(540px, 44vw, 760px);
+    min-height: 470px;
+  }
+
+  .offer-card-center h4 {
+    font-size: clamp(2rem, 2.6vw, 3rem);
+  }
+
+  .method-shell h3 {
+    font-size: clamp(2.8rem, 4vw, 4.4rem);
+  }
+
+  .competence-awards {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (min-width: 1920px) {
+  .about-layout,
+  .method-shell,
+  .proof-stats-panel,
+  .proof-bottom,
+  .offer-shell,
+  .footer-top,
+  .footer-bottom {
+    width: min(1480px, 100%);
+  }
+
+  .cover-main {
+    width: min(1120px, calc(100% - 6rem));
+  }
+
+  .cover-overlay h1 {
+    font-size: clamp(4.4rem, 5.2vw, 6.4rem);
+  }
+
+  .cover-overlay p {
+    font-size: clamp(0.95rem, 1vw, 1.15rem);
+  }
+
+  .cover-tags {
+    width: min(1040px, calc(100% - 6rem));
+    font-size: clamp(1.2rem, 1.5vw, 1.8rem);
+  }
+
+  #oferta h3 {
+    font-size: clamp(3.5rem, 4.2vw, 5.2rem);
+  }
+
+  .offer-card-center {
+    width: clamp(620px, 42vw, 860px);
+    min-height: 520px;
+  }
+
+  .footer-contact-grid a,
+  .footer-phone a {
+    font-size: clamp(1.1rem, 1.05vw, 1.28rem);
   }
 }
