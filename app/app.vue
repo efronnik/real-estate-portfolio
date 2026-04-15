@@ -1,12 +1,34 @@
 <template>
   <div class="canva-style-page">
     <NuxtRouteAnnouncer />
+    <Transition name="page-loader-fade">
+      <div
+        v-if="isPageLoaderVisible"
+        class="page-loader"
+        :class="{ leaving: isPageLoaderLeaving }"
+        aria-hidden="true"
+      >
+        <div class="page-loader-inner">
+          <div
+            ref="loaderSignatureHostRef"
+            class="page-loader-signature"
+            aria-hidden="true"
+          ></div>
+          <img
+            src="/images/loader-stroke.svg"
+            class="page-loader-stroke"
+            alt=""
+            aria-hidden="true"
+          />
+        </div>
+      </div>
+    </Transition>
     <main>
       <section class="cover-hero">
         <div class="cover-overlay">
           <div class="cover-main">
             <h1>Patrycja Szewczyk</h1>
-            <p>Ekspert inwestycji i sprzedazy · Warszawa</p>
+            <p>Ekspert inwestycji i sprzedaży · Warszawa</p>
             <img
               src="/images/compass-log.png?v=2"
               alt="Compass logo"
@@ -15,7 +37,7 @@
             />
           </div>
           <div class="cover-tags">
-            <span>SPRZEDAZ</span>
+            <span>SPRZEDAŻ</span>
             <span>INWESTYCJE</span>
             <span>STRATEGIA</span>
           </div>
@@ -27,37 +49,37 @@
         <div class="about-layout">
           <div class="about-copy">
             <p>
-              Nazywam sie Patrycja Szewczyk. Od lat zajmuje sie inwestowaniem,
-              sprzedaza i przygotowaniem nieruchomosci tak, aby realnie zarabialy.
-              Wypracowalam autorski model dzialania, ktory laczy sprzedaz
-              nieruchomosci z podejsciem inwestycyjnym. Dzieki temu nie dzialam
+              Nazywam się Patrycja Szewczyk. Od lat zajmuję się inwestowaniem,
+              sprzedażą i przygotowaniem nieruchomości tak, aby realnie zarabiały.
+              Wypracowałam autorski model działania, który łączy sprzedaż
+              nieruchomości z podejściem inwestycyjnym. Dzięki temu nie działam
               schematycznie, tylko zawsze szukam najlepszego scenariusza dla
-              konkretnej nieruchomosci i klienta.
+              konkretnej nieruchomości i klienta.
             </p>
             <p>
-              Ponad 17 lat temu sama przeszlam przez proces sprzedazy nieruchomosci
-              jako wlasciciel. Znam ten proces od srodka: emocje, decyzje i
-              wyzwania. Dzis prowadze wspolprace osobiscie od pierwszej analizy po
-              finalizacje, laczac doswiadczenie rynkowe z podejsciem inwestycyjnym.
+              Ponad 17 lat temu sama przeszłam przez proces sprzedaży nieruchomości
+              jako właściciel. Znam ten proces od środka: emocje, decyzje i
+              wyzwania. Dziś prowadzę współpracę osobiście od pierwszej analizy po
+              finalizację, łącząc doświadczenie rynkowe z podejściem inwestycyjnym.
             </p>
             <p>
-              Analizuje realna wartosc nieruchomosci na podstawie cen transakcyjnych,
-              oceniam potencjal inwestycyjny i dobieram najlepsza strategie:
-              sprzedaz bez zmian albo przygotowanie pod wyzsza cene. Nie kazda
-              nieruchomosc powinna byc sprzedana "tak jak stoi" - czasem odpowiednie
-              przygotowanie pozwala znacznaco zwiekszyc jej wartosc.
+              Analizuję realną wartość nieruchomości na podstawie cen transakcyjnych,
+              oceniam potencjał inwestycyjny i dobieram najlepszą strategię:
+              sprzedaż bez zmian albo przygotowanie pod wyższą cenę. Nie każda
+              nieruchomość powinna być sprzedana "tak jak stoi" - czasem odpowiednie
+              przygotowanie pozwala znacząco zwiększyć jej wartość.
             </p>
             <p>
-              Wspolpracuje zarowno ze sprzedajacymi, jak i inwestorami. Jesli
-              sprzedajesz, maksymalizuje wartosc Twojej nieruchomosci i prowadze
-              proces od poczatku do konca. Jesli inwestujesz, znajduje nieruchomosci
-              z potencjalem i analizuje ich oplacalnosc.
+              Współpracuję zarówno ze sprzedającymi, jak i inwestorami. Jeśli
+              sprzedajesz, maksymalizuję wartość Twojej nieruchomości i prowadzę
+              proces od początku do końca. Jeśli inwestujesz, znajduję nieruchomości
+              z potencjałem i analizuję ich opłacalność.
             </p>
             <p>
-              Lacze doswiadczenie w sprzedazy, remontach, flipach i przygotowaniu
-              nieruchomosci do rynku. Dzialam takze miedzynarodowo - swobodnie
-              komunikuje sie po angielsku, niemiecku i wlosku, co daje szerszy zasieg
-              sprzedazy i dostep do wiekszej grupy kupujacych.
+              Łączę doświadczenie w sprzedaży, remontach, flipach i przygotowaniu
+              nieruchomości do rynku. Działam także międzynarodowo - swobodnie
+              komunikuję się po angielsku, niemiecku i włosku, co daje szerszy zasięg
+              sprzedaży i dostęp do większej grupy kupujących.
             </p>
           </div>
           <div class="about-figure" aria-hidden="true"></div>
@@ -73,7 +95,7 @@
             </article>
             <article>
               <strong>1:1</strong>
-              <span>ZAWSZE JA, NIE ZESPOL</span>
+              <span>ZAWSZE JA, NIE ZESPÓŁ</span>
             </article>
             <article>
               <button
@@ -83,39 +105,39 @@
                 :aria-expanded="isCommissionOpen ? 'true' : 'false'"
               >
                 <strong>{{ statsDisplay.commission }}</strong>
-                <span>TYLKO OD SPRZEDAJACEGO</span>
+                <span>TYLKO OD SPRZEDAJĄCEGO</span>
                 <em>{{
                   isCommissionOpen
-                    ? 'Kliknij, aby ukryc szczegoly ▲'
-                    : 'Kliknij, aby rozwinac szczegoly ▼'
+                    ? 'Kliknij, aby ukryć szczegóły ▲'
+                    : 'Kliknij, aby rozwinąć szczegóły ▼'
                 }}</em>
               </button>
             </article>
             <article>
               <strong>{{ statsDisplay.languages }}</strong>
-              <span>JEZYKI OBCE</span>
+              <span>JĘZYKI OBCE</span>
             </article>
           </div>
 
           <div class="proof-dark" :class="{ open: isCommissionOpen }">
             <p>
-              Prowizja tylko jednostronna - od sprzedajacego. Kupujacy nie placi nic.
-              To oznacza wieksza grupe zainteresowanych i szybsza sprzedaz.
+              Prowizja tylko jednostronna - od sprzedającego. Kupujący nie płaci nic.
+              To oznacza większą grupę zainteresowanych i szybszą sprzedaż.
             </p>
           </div>
         </div>
 
         <div class="proof-bottom">
           <p>
-            Wiekszosc wlascicieli sprzedaje ponizej realnej wartosci. Nie dlatego,
-            ze rynek jest zly - ale dlatego, ze nikt im nie pokazal wlasciwej
-            strategii i nie ustalil ceny we wlasciwy sposob.
+            Większość właścicieli sprzedaje poniżej realnej wartości. Nie dlatego,
+            że rynek jest zły - ale dlatego, że nikt im nie pokazał właściwej
+            strategii i nie ustalił ceny we właściwy sposób.
           </p>
         </div>
       </section>
 
       <section id="oferta" class="list-section">
-        <h3>Co moge dla Ciebie zrobic?</h3>
+        <h3>Co mogę dla Ciebie zrobić?</h3>
         <div class="offer-shell">
           <div
             class="offer-backdrop"
@@ -140,15 +162,15 @@
             <button type="button" aria-label="Poprzedni slajd" @click="prevOffer">
               <span class="offer-arrow-glyph offer-arrow-glyph-left" aria-hidden="true"></span>
             </button>
-            <button type="button" aria-label="Nastepny slajd" @click="nextOffer">
+            <button type="button" aria-label="Następny slajd" @click="nextOffer">
               <span class="offer-arrow-glyph offer-arrow-glyph-right" aria-hidden="true"></span>
             </button>
           </div>
 
           <div class="offer-proof-copy">
             <p>
-              Chcesz sprzedac nieruchomosc jak najdrozej?
-              Mam sprawdzona metode - nie przypadek.
+              Chcesz sprzedać nieruchomość jak najdrożej?
+              Mam sprawdzoną metodę - nie przypadek.
             </p>
           </div>
         </div>
@@ -187,14 +209,14 @@
 
       <section class="competence-section">
         <div class="competence-intro">
-          <p>PROFESJONALIZM I DOSWIADCZENIE</p>
+          <p>PROFESJONALIZM I DOŚWIADCZENIE</p>
           <h3>MOJE KOMPETENCJE</h3>
         </div>
 
         <div class="competence-awards">
           <article>
             <h4>17 LAT</h4>
-            <p>Doswiadczenia na rynku nieruchomosci</p>
+            <p>Doświadczenia na rynku nieruchomości</p>
           </article>
           <article>
             <h4>WYCENA</h4>
@@ -202,15 +224,15 @@
           </article>
           <article>
             <h4>STRATEGIA</h4>
-            <p>Sprzedazy dopasowana do nieruchomosci</p>
+            <p>Sprzedaży dopasowana do nieruchomości</p>
           </article>
           <article>
             <h4>REMONTY</h4>
-            <p>Doswiadczenie w podnoszeniu wartosci</p>
+            <p>Doświadczenie w podnoszeniu wartości</p>
           </article>
           <article>
             <h4>HOME STAGING</h4>
-            <p>Przygotowanie wizualne nieruchomosci</p>
+            <p>Przygotowanie wizualne nieruchomości</p>
           </article>
           <article>
             <h4>PROCES 1:1</h4>
@@ -224,7 +246,7 @@
         <div class="footer-top">
           <div class="footer-brand">
             <h3>Patrycja Szewczyk</h3>
-            <p class="footer-brand-role">EKSPERT INWESTYCJI I SPRZEDAZY · WARSZAWA</p>
+            <p class="footer-brand-role">EKSPERT INWESTYCJI I SPRZEDAŻY · WARSZAWA</p>
             <img
               class="footer-brand-logo"
               src="/images/compass-log.png"
@@ -294,6 +316,9 @@ const proofSectionRef = ref(null)
 const methodSectionRef = ref(null)
 const offerTouchStartX = ref(null)
 const offerTouchStartY = ref(null)
+const loaderSignatureHostRef = ref(null)
+const isPageLoaderVisible = ref(true)
+const isPageLoaderLeaving = ref(false)
 const hasStatsAnimated = ref(false)
 const methodProgressValues = ref([])
 const animatedStats = ref({
@@ -332,44 +357,44 @@ const runStatsAnimation = () => {
 }
 const offerItems = [
   {
-    title: "Analiza realnej wartosci nieruchomosci",
+    title: "Analiza realnej wartości nieruchomości",
     description:
-      "Oceniam wartosc na podstawie realnych danych transakcyjnych, nie ogolnych porownan.",
+      "Oceniam wartość na podstawie realnych danych transakcyjnych, nie ogólnych porównań.",
     imagePosition: "46% 36%",
     image: "/images/offer-1.jpg",
   },
   {
-    title: "Ocena potencjalu inwestycyjnego",
+    title: "Ocena potencjału inwestycyjnego",
     description:
-      "Sprawdzam, czy przygotowanie nieruchomosci zwiekszy wartosc i czy to sie realnie oplaca.",
+      "Sprawdzam, czy przygotowanie nieruchomości zwiększy wartość i czy to się realnie opłaca.",
     imagePosition: "58% 42%",
     image: "/images/offer-2.jpg",
   },
   {
-    title: "Strategia: sprzedaz od razu lub przygotowanie",
+    title: "Strategia: sprzedaż od razu lub przygotowanie",
     description:
-      "Dobieram scenariusz do konkretnej nieruchomosci i celu finansowego wlasciciela.",
+      "Dobieram scenariusz do konkretnej nieruchomości i celu finansowego właściciela.",
     imagePosition: "64% 38%",
     image: "/images/offer-3.jpg",
   },
   {
-    title: "Prowadzenie procesu od poczatku do konca",
+    title: "Prowadzenie procesu od początku do końca",
     description:
-      "Od wyceny i oferty po negocjacje oraz finalizacje - prowadzisz to ze mna, nie z posrednikami.",
+      "Od wyceny i oferty po negocjacje oraz finalizację - prowadzisz to ze mną, nie z pośrednikami.",
     imagePosition: "50% 58%",
     image: "/images/offer-4.jpg",
   },
   {
-    title: "Wspolpraca dla sprzedajacych i inwestorow",
+    title: "Współpraca dla sprzedających i inwestorów",
     description:
-      "Lacze perspektywe sprzedazy i inwestowania, dzieki czemu strategia jest bardziej precyzyjna.",
+      "Łączę perspektywę sprzedaży i inwestowania, dzięki czemu strategia jest bardziej precyzyjna.",
     imagePosition: "40% 50%",
     image: "/images/offer-5.jpg",
   },
   {
     title: "Komunikacja: PL / EN / DE / IT",
     description:
-      "Komunikuje sie plynnie w jezykach: polskim, angielskim, niemieckim i wloskim.",
+      "Komunikuję się płynnie w językach: polskim, angielskim, niemieckim i włoskim.",
     imagePosition: "62% 52%",
     image: "/images/offer-6.jpg",
   },
@@ -379,35 +404,35 @@ const methodItems = [
   {
     title: "Analiza cen transakcyjnych",
     description:
-      "Nie porownuje ofert - analizuje realne ceny sprzedazy. Wiesz dokladnie, ile jest warta Twoja nieruchomosc.",
-    tags: ["Ceny transakcyjne", "Pozycjonowanie ceny", "Wartosc realna"],
+      "Nie porównuję ofert - analizuję realne ceny sprzedaży. Wiesz dokładnie, ile jest warta Twoja nieruchomość.",
+    tags: ["Ceny transakcyjne", "Pozycjonowanie ceny", "Wartość realna"],
     image: "/images/method-illustration-1.svg",
   },
   {
-    title: "Strategia: sprzedac czy przygotowac?",
+    title: "Strategia: sprzedać czy przygotować?",
     description:
-      "Oceniam potencjal i wspolnie decydujemy, czy warto zainwestowac w przygotowanie, zeby uzyskac wyzsza cene.",
-    tags: ["Scenariusz sprzedazy", "Zakres przygotowania", "Maksymalizacja ceny"],
+      "Oceniam potencjał i wspólnie decydujemy, czy warto zainwestować w przygotowanie, żeby uzyskać wyższą cenę.",
+    tags: ["Scenariusz sprzedaży", "Zakres przygotowania", "Maksymalizacja ceny"],
     image: "/images/method-illustration-2.svg",
   },
   {
-    title: "Weryfikacja kupujacych",
+    title: "Weryfikacja kupujących",
     description:
-      "Sprawdzam zainteresowanych - na prezentacje przychodza tylko osoby realnie gotowe do zakupu. Mniej chaosu, szybsze decyzje i krotszy czas sprzedazy.",
-    tags: ["Selekcja leadow", "Gotowosc finansowa", "Lepsze negocjacje"],
+      "Sprawdzam zainteresowanych - na prezentacje przychodzą tylko osoby realnie gotowe do zakupu. Mniej chaosu, szybsze decyzje i krótszy czas sprzedaży.",
+    tags: ["Selekcja leadów", "Gotowość finansowa", "Lepsze negocjacje"],
     image: "/images/method-illustration-3.svg",
   },
   {
     title: "Etapowe monitorowanie ceny",
     description:
-      "Cena jest korygowana na kazdym etapie zgodnie z rynkiem - zeby nie stracic ani zlotowki.",
+      "Cena jest korygowana na każdym etapie zgodnie z rynkiem - żeby nie stracić ani złotówki.",
     tags: ["Kontrola popytu", "Dane rynkowe", "Szybka korekta"],
     image: "/images/method-illustration-4.svg",
   },
   {
-    title: "Prowadze caly proces - ja osobiscie",
+    title: "Prowadzę cały proces - ja osobiście",
     description:
-      "Od wyceny po finalizacje. Bezposredni kontakt ze mna - nie z asystentem, nie z zespolem.",
+      "Od wyceny po finalizację. Bezpośredni kontakt ze mną - nie z asystentem, nie z zespołem.",
     tags: ["Prowadzenie 1:1", "Negocjacje", "Finalizacja transakcji"],
     image: "/images/method-illustration-5.svg",
   },
@@ -416,6 +441,44 @@ const methodItems = [
 methodProgressValues.value = methodItems.map(() => 0)
 
 let methodScrollRaf = null
+let pageLoaderStartTimer = null
+let pageLoaderHideTimer = null
+let loaderSignatureVivus = null
+let loaderSignatureFillRaf = null
+const startLoaderSignatureAnimation = async () => {
+  if (typeof window === "undefined") return
+  const host = loaderSignatureHostRef.value
+  if (!(host instanceof HTMLElement)) return
+  const { default: Vivus } = await import("vivus")
+  host.innerHTML = ""
+  if (loaderSignatureFillRaf) {
+    cancelAnimationFrame(loaderSignatureFillRaf)
+    loaderSignatureFillRaf = null
+  }
+  loaderSignatureVivus = new Vivus(host, {
+    file: `/images/loader-name.svg?v=${Date.now()}`,
+    type: "oneByOne",
+    start: "autostart",
+    duration: 210,
+    reverseStack: true,
+  })
+  const syncSignatureFill = () => {
+    if (!loaderSignatureVivus) return
+    const mapItems = Array.isArray(loaderSignatureVivus.map) ? loaderSignatureVivus.map : []
+    for (const item of mapItems) {
+      const el = item?.el
+      if (!(el instanceof SVGPathElement)) continue
+      const progress = typeof item.progress === "number" ? item.progress : 0
+      el.style.fill = "#111111"
+      // Fill only when a stroke is almost completed to keep letterforms coherent.
+      el.style.fillOpacity = progress >= 0.98 ? "1" : "0"
+      el.style.stroke = "#111111"
+      el.style.strokeWidth = "1.1"
+    }
+    loaderSignatureFillRaf = requestAnimationFrame(syncSignatureFill)
+  }
+  loaderSignatureFillRaf = requestAnimationFrame(syncSignatureFill)
+}
 
 const updateMethodProgressFromScroll = () => {
   const section = methodSectionRef.value
@@ -535,6 +598,16 @@ const handleLogoError = (event) => {
 const getYear = () => new Date().getFullYear()
 
 onMounted(() => {
+  startLoaderSignatureAnimation()
+  pageLoaderStartTimer = window.setTimeout(() => {
+    isPageLoaderLeaving.value = true
+    pageLoaderHideTimer = window.setTimeout(() => {
+      isPageLoaderVisible.value = false
+    }, 520)
+  }, 4200)
+})
+
+onMounted(() => {
   const section = proofSectionRef.value
   if (!section || typeof IntersectionObserver === "undefined") {
     runStatsAnimation()
@@ -569,6 +642,26 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
+  if (pageLoaderStartTimer) {
+    clearTimeout(pageLoaderStartTimer)
+    pageLoaderStartTimer = null
+  }
+  if (pageLoaderHideTimer) {
+    clearTimeout(pageLoaderHideTimer)
+    pageLoaderHideTimer = null
+  }
+  if (loaderSignatureVivus) {
+    loaderSignatureVivus.stop()
+    loaderSignatureVivus = null
+  }
+  if (loaderSignatureFillRaf) {
+    cancelAnimationFrame(loaderSignatureFillRaf)
+    loaderSignatureFillRaf = null
+  }
+  const host = loaderSignatureHostRef.value
+  if (host instanceof HTMLElement) {
+    host.innerHTML = ""
+  }
   window.removeEventListener("scroll", handleMethodScrollProgress)
   window.removeEventListener("resize", handleMethodScrollProgress)
   if (methodScrollRaf) {

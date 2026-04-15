@@ -2,6 +2,16 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  vite: {
+    server: {
+      watch: {
+        // Polling avoids unstable fs watchers that can trigger EMFILE/IPC failures on some macOS + Node setups.
+        usePolling: true,
+        interval: 500,
+        ignored: ['**/node_modules/**', '**/.git/**', '**/.nuxt/**', '**/dist/**', '**/tmp_frames/**']
+      }
+    }
+  },
   css: ['~/assets/css/main.css'],
   app: {
     head: {

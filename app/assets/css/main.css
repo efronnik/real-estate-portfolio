@@ -26,6 +26,73 @@ body {
   font-family: var(--font-premium-serif);
 }
 
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #f1f0ec;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+}
+
+.page-loader-inner {
+  text-align: center;
+  width: min(1200px, 100%);
+}
+
+.page-loader-signature {
+  display: block;
+  width: min(86vw, 1100px);
+  aspect-ratio: 4.2 / 1.45;
+  margin: 0 auto;
+}
+
+.page-loader-signature svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
+.page-loader-stroke {
+  display: block;
+  width: min(58vw, 820px);
+  height: auto;
+  margin: -0.35rem auto 0;
+  transform: translateX(9vw) rotate(-2.5deg);
+  transform-origin: left center;
+}
+
+.page-loader-fade-enter-active,
+.page-loader-fade-leave-active {
+  transition: opacity 520ms ease;
+}
+
+.page-loader-fade-enter-from,
+.page-loader-fade-leave-to {
+  opacity: 0;
+}
+
+.page-loader.leaving .page-loader-inner {
+  transform: translateY(-10px) scale(0.985);
+  opacity: 0;
+  transition: transform 520ms ease, opacity 520ms ease;
+}
+
+@media (max-width: 767px) {
+  .page-loader-signature {
+    width: min(92vw, 440px);
+    aspect-ratio: 4 / 1.55;
+  }
+
+  .page-loader-stroke {
+    width: min(72vw, 360px);
+    margin-top: -0.2rem;
+    transform: translateX(8vw) rotate(-2.5deg);
+  }
+}
+
 input,
 textarea,
 select,
@@ -1787,13 +1854,11 @@ body,
   }
 
   .about-section {
-    height: 100vh;
     min-height: 100vh;
-    height: 100dvh;
     min-height: 100dvh;
     padding-top: 1rem;
     padding-bottom: 1rem;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .about-layout {
@@ -1807,8 +1872,8 @@ body,
   .about-copy {
     margin-top: 7.2rem;
     padding-top: 0;
-    max-height: calc(100% - 7.2rem);
-    overflow: auto;
+    max-height: none;
+    overflow: visible;
     padding-right: 0.2rem;
   }
 
@@ -1902,8 +1967,6 @@ body,
   #oferta.list-section {
     min-height: 100vh;
     min-height: 100dvh;
-    height: 100vh;
-    height: 100dvh;
     padding-top: var(--m-space-md);
     padding-bottom: var(--m-space-lg);
     display: flex;
@@ -2020,24 +2083,22 @@ body,
   }
 
   .competence-section {
-    height: 100vh;
     min-height: 100vh;
-    height: 100dvh;
     min-height: 100dvh;
     padding-top: var(--m-space-lg);
     padding-bottom: var(--m-space-lg);
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .competence-awards {
     grid-template-columns: 1fr;
     gap: var(--m-space-md);
     margin-top: var(--m-space-md);
-    flex: 1;
-    min-height: 0;
-    overflow: auto;
+    flex: 0 0 auto;
+    min-height: auto;
+    overflow: visible;
     padding-right: 0.2rem;
   }
 
