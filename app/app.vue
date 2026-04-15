@@ -251,11 +251,30 @@
           <p class="footer-powered">Powered by Patrycja Szewczyk</p>
           <p class="footer-copy">Copyright © {{ new Date().getFullYear() }} | Privacy Policy</p>
           <div class="footer-socials" aria-label="Social links">
-            <span>f</span>
-            <span>ig</span>
-            <span>in</span>
-            <span>x</span>
-            <span>yt</span>
+            <a class="footer-social-link footer-social-icon" href="https://www.facebook.com/" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" role="img" focusable="false" aria-hidden="true">
+                <path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.6 1.7-1.6H16.7V3.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7v3h3v8h3.5z" fill="currentColor"/>
+              </svg>
+            </a>
+            <a class="footer-social-link footer-social-icon" href="https://www.instagram.com/" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" role="img" focusable="false" aria-hidden="true">
+                <rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                <circle cx="17.25" cy="6.75" r="1.2" fill="currentColor"/>
+              </svg>
+            </a>
+            <a class="footer-social-link footer-social-icon" href="https://www.linkedin.com/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" role="img" focusable="false" aria-hidden="true">
+                <rect x="4.1" y="9.5" width="3.2" height="10.2" fill="currentColor"/>
+                <circle cx="5.7" cy="6.3" r="1.85" fill="currentColor"/>
+                <path d="M9.8 9.5h3.1v1.4c.7-1.1 1.9-1.8 3.6-1.8 3 0 4.4 2 4.4 5.2v5.4h-3.2v-4.9c0-1.5-.5-2.5-1.9-2.5-1.5 0-2.2 1-2.2 2.5v4.9H9.8V9.5z" fill="currentColor"/>
+              </svg>
+            </a>
+            <a class="footer-social-link footer-social-icon footer-social-icon-x" href="https://x.com/" aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" role="img" focusable="false" aria-hidden="true">
+                <path d="M18.25 4h2.85l-6.22 7.1L22.2 20h-5.73l-4.49-5.87L6.84 20H4l6.65-7.59L3.62 4h5.87l4.05 5.35L18.25 4z" fill="currentColor"/>
+              </svg>
+            </a>
           </div>
         </div>
       </footer>
