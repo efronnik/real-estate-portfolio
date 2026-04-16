@@ -653,36 +653,32 @@ const handleLogoError = (event) => {
 
 const getYear = () => new Date().getFullYear()
 
-/** iOS Safari: debounced sync of visual viewport height → CSS (--vv-visible-height) to reduce layout thrash when the bottom bar shows/hides. */
-let visualViewportDebounceTimer = null
-const VISUAL_VIEWPORT_DEBOUNCE_MS = 180
+/**
+ * Classic mobile full-height: --vh = 1% of window.innerHeight (stable vs dynamic 100vh on iOS).
+ * CSS uses calc(var(--vh, 1vh) * 100). Only set when PHONE_MAX_MEDIA matches.
+ */
+let viewportVhRaf = null
 
-const syncVisualViewportHeightToCss = () => {
+const setViewportVhUnit = () => {
   if (typeof document === "undefined" || typeof window === "undefined") return
   if (!window.matchMedia(PHONE_MAX_MEDIA).matches) {
-    document.documentElement.style.removeProperty("--vv-visible-height")
-    return
-  }
-  const vv = window.visualViewport
-  if (!vv) {
-    document.documentElement.style.removeProperty("--vv-visible-height")
+    document.documentElement.style.removeProperty("--vh")
     return
   }
   document.documentElement.style.setProperty(
-    "--vv-visible-height",
-    `${Math.max(1, Math.round(vv.height))}px`,
+    "--vh",
+    `${window.innerHeight * 0.01}px`,
   )
 }
 
-const scheduleVisualViewportHeightSync = () => {
+/** Coalesce visualViewport events to one layout write per frame (Safari toolbar). */
+const scheduleSetViewportVhUnit = () => {
   if (typeof window === "undefined") return
-  if (visualViewportDebounceTimer) {
-    window.clearTimeout(visualViewportDebounceTimer)
-  }
-  visualViewportDebounceTimer = window.setTimeout(() => {
-    syncVisualViewportHeightToCss()
-    visualViewportDebounceTimer = null
-  }, VISUAL_VIEWPORT_DEBOUNCE_MS)
+  if (viewportVhRaf !== null) return
+  viewportVhRaf = requestAnimationFrame(() => {
+    setViewportVhUnit()
+    viewportVhRaf = null
+  })
 }
 
 let phoneMql = null
@@ -692,7 +688,7 @@ const applyPhoneOnlyViewportMeta = () => {
   viewportMetaContent.value = window.matchMedia(PHONE_MAX_MEDIA).matches
     ? "width=device-width, initial-scale=1, viewport-fit=cover"
     : "width=device-width, initial-scale=1"
-  syncVisualViewportHeightToCss()
+  setViewportVhUnit()
 }
 
 onMounted(() => {
@@ -741,10 +737,10 @@ onMounted(() => {
   phoneMql.addEventListener("change", applyPhoneOnlyViewportMeta)
   const vv = window.visualViewport
   if (vv) {
-    vv.addEventListener("resize", scheduleVisualViewportHeightSync, { passive: true })
-    vv.addEventListener("scroll", scheduleVisualViewportHeightSync, { passive: true })
+    vv.addEventListener("resize", scheduleSetViewportVhUnit, { passive: true })
+    vv.addEventListener("scroll", scheduleSetViewportVhUnit, { passive: true })
   }
-  window.addEventListener("orientationchange", scheduleVisualViewportHeightSync, {
+  window.addEventListener("orientationchange", applyPhoneOnlyViewportMeta, {
     passive: true,
   })
   window.addEventListener("resize", applyPhoneOnlyViewportMeta, { passive: true })
@@ -780,15 +776,15 @@ onUnmounted(() => {
   if (typeof window !== "undefined") {
     phoneMql?.removeEventListener("change", applyPhoneOnlyViewportMeta)
     phoneMql = null
-    window.visualViewport?.removeEventListener("resize", scheduleVisualViewportHeightSync)
-    window.visualViewport?.removeEventListener("scroll", scheduleVisualViewportHeightSync)
-    window.removeEventListener("orientationchange", scheduleVisualViewportHeightSync)
+    window.visualViewport?.removeEventListener("resize", scheduleSetViewportVhUnit)
+    window.visualViewport?.removeEventListener("scroll", scheduleSetViewportVhUnit)
+    window.removeEventListener("orientationchange", applyPhoneOnlyViewportMeta)
     window.removeEventListener("resize", applyPhoneOnlyViewportMeta)
-    if (visualViewportDebounceTimer) {
-      window.clearTimeout(visualViewportDebounceTimer)
-      visualViewportDebounceTimer = null
+    if (viewportVhRaf !== null) {
+      cancelAnimationFrame(viewportVhRaf)
+      viewportVhRaf = null
     }
-    document.documentElement.style.removeProperty("--vv-visible-height")
+    document.documentElement.style.removeProperty("--vh")
   }
   if (methodScrollRaf) {
     cancelAnimationFrame(methodScrollRaf)

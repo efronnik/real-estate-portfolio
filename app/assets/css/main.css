@@ -1968,12 +1968,9 @@ body,
     --about-mobile-stack-gap: 1.25rem;
     --footer-stack-gap: var(--m-space-md);
     /*
-     * Только телефон: стабильная высота вьюпорта.
-     * 100dvh пересчитывается, когда Safari показывает/прячет нижнюю панель — страница дергается.
-     * 100svh = «маленький» вьюпорт при видимых панелях — без постоянного reflow при скролле (web.dev / OpenReplay).
+     * Высота экрановых секций: --vh = 1% window.innerHeight (app.vue, только ≤767px).
+     * Fallback 1vh до гидрации; избегаем 100dvh — Safari пересчитывает при панели инструментов.
      */
-    --viewport-fill: 100vh;
-    --viewport-fill: 100svh;
   }
 
   /*
@@ -1991,7 +1988,7 @@ body,
 
   .cover-hero,
   .cover-overlay {
-    min-height: var(--vv-visible-height, var(--viewport-fill));
+    min-height: calc(var(--vh, 1vh) * 100);
   }
 
   .cover-hero {
@@ -2061,7 +2058,7 @@ body,
   }
 
   .about-section {
-    min-height: var(--vv-visible-height, var(--viewport-fill));
+    min-height: calc(var(--vh, 1vh) * 100);
     height: auto;
     overflow: visible;
     gap: var(--about-mobile-stack-gap);
@@ -2199,8 +2196,8 @@ body,
   }
 
   #oferta.list-section {
-    min-height: var(--vv-visible-height, var(--viewport-fill));
-    height: var(--vv-visible-height, var(--viewport-fill));
+    min-height: calc(var(--vh, 1vh) * 100);
+    height: calc(var(--vh, 1vh) * 100);
     padding-top: var(--m-section-vpad);
     padding-bottom: var(--m-section-vpad);
     display: flex;
