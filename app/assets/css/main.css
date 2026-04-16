@@ -40,9 +40,12 @@ body {
   font-family: var(--font-premium-serif);
 }
 
-/* Keep one typography across the whole site content. */
-body * {
-  font-family: var(--font-premium-serif) !important;
+/* Inherit from body — avoid `body *` (forces style recalc on huge subtrees during scroll). */
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
 }
 
 .page-loader-signature,
@@ -1990,7 +1993,8 @@ body,
     transform: none;
     background-size: cover;
     background-position: center center;
-    filter: blur(2px);
+    /* Blur is very expensive on iOS compositor during scroll; gradient overlay carries contrast */
+    filter: none;
   }
 
   .cover-hero::after {
