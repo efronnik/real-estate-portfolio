@@ -583,7 +583,14 @@ const handleOfferCardClick = (idx) => {
   goToOffer(idx)
 }
 
+/** Same breakpoint as CSS — on phone, carousel advances only via card tap or arrow buttons. */
+const isOfferSwipeDisabledViewport = () => {
+  if (typeof window === "undefined") return false
+  return window.matchMedia("(max-width: 767px)").matches
+}
+
 const handleOfferTouchStart = (event) => {
+  if (isOfferSwipeDisabledViewport()) return
   const touch = event.changedTouches?.[0]
   if (!touch) return
   offerTouchStartX.value = touch.clientX
@@ -591,6 +598,10 @@ const handleOfferTouchStart = (event) => {
 }
 
 const handleOfferTouchEnd = (event) => {
+  if (isOfferSwipeDisabledViewport()) {
+    resetOfferTouchState()
+    return
+  }
   const touch = event.changedTouches?.[0]
   if (!touch) return
   if (offerTouchStartX.value === null || offerTouchStartY.value === null) return

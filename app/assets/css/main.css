@@ -82,13 +82,37 @@ body * {
   margin: 0.2rem 0 0;
   display: inline-block;
   position: relative;
-  left: 220px !important;
-  top: -42px !important;
+  left: 0;
+  top: 0;
   font-size: clamp(1.15rem, 2.1vw, 1.95rem);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: #222;
   transform: none !important;
+}
+
+@media (min-width: 1200px) {
+  .page-loader-tagline {
+    left: 220px !important;
+    top: -42px !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .page-loader-tagline {
+    left: 0 !important;
+    top: 0 !important;
+    display: block;
+    margin: 0.55rem auto 0;
+    max-width: min(100%, 36rem);
+    padding: 0 clamp(0.75rem, 3vw, 1.5rem);
+    box-sizing: border-box;
+    font-size: clamp(0.78rem, 1.55vw, 1.1rem);
+    letter-spacing: 0.1em;
+    line-height: 1.35;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
 }
 
 
@@ -127,6 +151,21 @@ body * {
     width: min(72vw, 360px);
     margin-top: -0.2rem;
     transform: translateX(8vw) rotate(-2.5deg);
+  }
+
+  .page-loader-tagline {
+    left: 0 !important;
+    top: 0 !important;
+    display: block;
+    margin: 0.45rem auto 0;
+    max-width: calc(100vw - 2.5rem);
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+    font-size: clamp(0.62rem, 2.85vw, 0.88rem);
+    letter-spacing: 0.07em;
+    line-height: 1.35;
+    text-wrap: balance;
+    overflow-wrap: break-word;
   }
 }
 
@@ -224,7 +263,7 @@ body,
 }
 
 .cover-tags {
-  width: min(760px, 100%);
+  width: min(760px, calc(100% - clamp(2rem, 6vw, 3.5rem)));
   margin-top: 0;
   position: absolute;
   left: 50%;
@@ -233,6 +272,9 @@ body,
   display: flex;
   justify-content: space-between;
   gap: 1rem;
+  padding-left: clamp(0.5rem, 2vw, 1rem);
+  padding-right: clamp(0.5rem, 2vw, 1rem);
+  box-sizing: border-box;
   font-size: clamp(1rem, 1.8vw, 2rem);
   letter-spacing: 0.15em;
 }
@@ -955,11 +997,13 @@ body,
     padding: 1rem;
   }
 
-  .offer-card-left,
-  .offer-card-right,
-  .offer-card-far-left,
-  .offer-card-far-right {
-    display: none;
+  /* Must beat #oferta .offer-card { display:flex !important } */
+  #oferta .offer-card.offer-card-left,
+  #oferta .offer-card.offer-card-right,
+  #oferta .offer-card.offer-card-far-left,
+  #oferta .offer-card.offer-card-far-right,
+  #oferta .offer-card.offer-card-hidden {
+    display: none !important;
   }
 
   .offer-card-center {
@@ -985,55 +1029,29 @@ body,
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
-  .cover-hero,
-  .cover-overlay {
-    min-height: 100vh;
-    min-height: 100dvh;
-  }
-
-  .cover-hero::before {
-    background-size: 158%;
-    background-position: 38% 62%;
-  }
-
-  .cover-main {
-    width: min(780px, calc(100% - 4rem));
-    transform: translateY(-2vh);
-    padding: 0 1rem;
-  }
-
+  /* Hero: только типографика; высота секции и фон как на десктопе. */
   .cover-overlay h1 {
-    margin-bottom: 0.5rem;
-    font-size: clamp(3.1rem, 7vw, 4.6rem);
-    line-height: 1.04;
-    letter-spacing: 0.02em;
+    margin: 0 auto 0.35rem;
+    font-size: clamp(3.65rem, 6.5vw, 6.25rem);
+    line-height: 1.03;
+    letter-spacing: 0.025em;
   }
 
   .cover-overlay p {
-    max-width: 36ch;
-    margin: 16px auto;
-    font-size: clamp(0.74rem, 1.25vw, 0.9rem);
-    line-height: 1.45;
-    letter-spacing: 0.11em;
-  }
-
-  .hero-compass-logo {
-    width: clamp(280px, 33vw, 380px);
+    max-width: 42ch;
+    margin: 14px auto 18px;
+    font-size: clamp(0.92rem, 1.5vw, 1.12rem);
+    line-height: 1.42;
+    letter-spacing: 0.13em;
   }
 
   .cover-tags {
-    width: min(620px, calc(100% - 3rem));
-    bottom: 2.1rem;
-    gap: 0.45rem 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    font-size: clamp(0.8rem, 1.4vw, 1.05rem);
-    letter-spacing: 0.08em;
+    font-size: clamp(0.88rem, 1.45vw, 1.18rem);
+    letter-spacing: 0.11em;
   }
 
   .cover-tags span {
-    padding: 0.2rem 0.45rem;
-    line-height: 1.2;
+    line-height: 1.22;
   }
 
   .about-section,
@@ -1064,14 +1082,19 @@ body,
   }
 
   .about-layout {
+    --about-tablet-content-offset: calc(5.2rem / 2);
     grid-template-columns: minmax(0, 1fr) minmax(220px, 31%);
     gap: 1.2rem;
-    align-items: stretch;
+    align-items: start;
     min-height: calc(100dvh - 2.8rem);
   }
 
+  .about-section h2 {
+    margin: 0 0 calc(0.65rem / 2);
+  }
+
   .about-copy {
-    padding-top: 5.2rem;
+    padding-top: var(--about-tablet-content-offset);
     max-height: calc(100dvh - 2.8rem);
     overflow: auto;
     padding-right: 0.5rem;
@@ -1081,21 +1104,25 @@ body,
 
   .about-copy p {
     max-width: 58ch;
-    font-size: clamp(1.02rem, 1.35vw, 1.16rem);
-    line-height: 1.52;
+    font-size: clamp(0.97rem, 1.25vw, 1.13rem);
+    line-height: 1.475;
     letter-spacing: 0.002em;
     color: #4a443b;
   }
 
   .about-copy p + p {
-    margin-top: 0.72rem;
+    margin-top: 0.66rem;
   }
 
   .about-figure {
-    margin-top: 5.2rem;
+    margin-top: 0;
+    padding-top: calc(var(--about-tablet-content-offset) + 0.45rem);
+    box-sizing: border-box;
     min-height: 0;
     height: calc(100dvh - 8rem);
-    background-position: center 18%;
+    background-origin: content-box;
+    background-position: center top;
+    background-size: contain;
   }
 
   .proof-section {
@@ -1933,6 +1960,9 @@ body,
     --m-space-sm: 0.7rem;
     --m-space-md: 1rem;
     --m-space-lg: 1.4rem;
+    --m-section-vpad: var(--m-space-lg);
+    --about-mobile-stack-gap: 1.25rem;
+    --footer-stack-gap: var(--m-space-md);
   }
 
   .cover-hero,
@@ -1969,16 +1999,8 @@ body,
   .page-footer {
     padding-left: 1rem;
     padding-right: 1rem;
-  }
-
-  .about-section,
-  .proof-section,
-  .method-section,
-  .competence-section,
-  .list-section,
-  .page-footer {
-    padding-top: var(--m-space-lg);
-    padding-bottom: var(--m-space-lg);
+    padding-top: var(--m-section-vpad);
+    padding-bottom: var(--m-section-vpad);
   }
 
   .cover-overlay h1 {
@@ -2011,25 +2033,48 @@ body,
   .about-section {
     min-height: 100vh;
     min-height: 100dvh;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    height: auto;
     overflow: visible;
+    gap: var(--about-mobile-stack-gap);
+  }
+
+  .about-section h2 {
+    margin: 0;
+    flex-shrink: 0;
   }
 
   .about-layout {
     grid-template-columns: 1fr;
-    grid-template-rows: minmax(0, 1fr) minmax(240px, 42vh);
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "figure"
+      "copy";
     min-height: 0;
-    height: 100%;
-    gap: 0.8rem;
+    flex: 0 1 auto;
+    height: auto;
+    gap: var(--about-mobile-stack-gap);
+    align-content: start;
   }
 
   .about-copy {
-    margin-top: 7.2rem;
+    grid-area: copy;
+    margin-top: 0;
     padding-top: 0;
     max-height: none;
     overflow: visible;
     padding-right: 0.2rem;
+  }
+
+  .about-figure {
+    grid-area: figure;
+    margin-top: 0;
+    min-height: clamp(200px, 36vh, 360px);
+    height: auto;
+    max-height: min(44vh, 420px);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center 22%;
+    border-radius: 0;
   }
 
   .about-copy p + p {
@@ -2044,19 +2089,6 @@ body,
     line-height: 0.9;
     white-space: nowrap;
     text-align: center;
-  }
-
-  .about-figure {
-    min-height: 0;
-    height: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center 22%;
-    border-radius: 0;
-  }
-
-  .proof-section {
-    padding: 0 1rem var(--m-space-lg);
   }
 
   .proof-top {
@@ -2119,11 +2151,29 @@ body,
     text-align: left;
   }
 
+  #oferta .offer-card h3,
+  #oferta .offer-card p,
+  #oferta .offer-card small {
+    text-align: center !important;
+  }
+
+  #oferta .offer-card h3 {
+    width: 100% !important;
+    max-width: min(100%, 40ch);
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  #oferta .offer-card p {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
   #oferta.list-section {
     min-height: 100vh;
     min-height: 100dvh;
-    padding-top: var(--m-space-md);
-    padding-bottom: var(--m-space-lg);
+    padding-top: var(--m-section-vpad);
+    padding-bottom: var(--m-section-vpad);
     display: flex;
     flex-direction: column;
   }
@@ -2232,10 +2282,8 @@ body,
   }
 
   .competence-section {
-    min-height: 100vh;
-    min-height: 100dvh;
-    padding-top: var(--m-space-lg);
-    padding-bottom: var(--m-space-lg);
+    min-height: 0;
+    height: auto;
     display: flex;
     flex-direction: column;
     overflow: visible;
@@ -2256,22 +2304,26 @@ body,
   }
 
   .competence-awards h3 {
-    font-size: clamp(2rem, 8.8vw, 2.75rem);
-    line-height: 1.03;
+    font-size: clamp(1.2rem, 4.6vw, 1.55rem);
+    line-height: 1.08;
   }
 
   .competence-awards p {
-    font-size: clamp(1.15rem, 4.7vw, 1.35rem);
-    line-height: 1.3;
+    max-width: 32ch;
+    font-size: clamp(0.88rem, 3.5vw, 1.05rem);
+    line-height: 1.32;
   }
 
   .cover-tags {
-    width: calc(100% - 2rem);
+    width: calc(100% - clamp(2.25rem, 8vw, 3rem));
     left: 50%;
     transform: translateX(-50%);
     bottom: 1.25rem;
     justify-content: space-between;
     gap: 0.4rem;
+    padding-left: 0.35rem;
+    padding-right: 0.35rem;
+    box-sizing: border-box;
     font-size: clamp(0.78rem, 3.6vw, 0.95rem);
     letter-spacing: 0.08em;
   }
@@ -2283,8 +2335,15 @@ body,
 
   .footer-top {
     grid-template-columns: 1fr;
-    gap: var(--m-space-md);
+    gap: var(--footer-stack-gap);
     text-align: center;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--footer-stack-gap);
   }
 
   .footer-brand h3 {
@@ -2296,7 +2355,7 @@ body,
 
   .footer-brand-role {
     transform: none;
-    margin-top: 0.35rem;
+    margin-top: 0;
     font-size: clamp(0.56rem, 2.9vw, 0.76rem);
     letter-spacing: 0.11em;
     text-align: center;
@@ -2306,13 +2365,13 @@ body,
   .footer-brand-logo {
     width: clamp(190px, 54vw, 260px);
     max-width: 86%;
-    margin: 1.35rem auto 0;
+    margin: 0 auto;
   }
 
   .footer-contact-grid {
     grid-template-columns: 1fr;
     max-width: none;
-    gap: var(--m-space-sm);
+    gap: var(--footer-stack-gap);
     justify-items: center;
   }
 
@@ -2467,6 +2526,38 @@ body,
   }
 }
 
+/* Tablet (narrow): same column edge for email + phone so icons line up */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .footer-contact-grid,
+  .footer-phone {
+    margin-left: clamp(1.75rem, 7vw, 4.5rem);
+  }
+
+  .footer-contact-grid {
+    justify-self: start;
+  }
+
+  .footer-phone {
+    justify-self: start;
+    margin-right: 0;
+    text-align: left;
+  }
+
+  .footer-contact-grid .footer-contact-item {
+    margin-right: 0 !important;
+  }
+
+  .footer-contact-grid .footer-contact-item,
+  .footer-phone {
+    justify-self: start;
+  }
+
+  .footer-contact-grid a,
+  .footer-phone a {
+    text-align: left;
+  }
+}
+
 @media (min-width: 1440px) {
   .about-layout,
   .method-shell,
@@ -2495,7 +2586,10 @@ body,
   }
 
   .cover-tags {
-    width: min(900px, calc(100% - 4rem));
+    width: min(900px, calc(100% - clamp(3rem, 8vw, 5rem)));
+    padding-left: clamp(0.5rem, 1.5vw, 1rem);
+    padding-right: clamp(0.5rem, 1.5vw, 1rem);
+    box-sizing: border-box;
   }
 
   #oferta h3 {
@@ -2542,7 +2636,10 @@ body,
   }
 
   .cover-tags {
-    width: min(1040px, calc(100% - 6rem));
+    width: min(1040px, calc(100% - clamp(4rem, 9vw, 7rem)));
+    padding-left: clamp(0.5rem, 1.2vw, 1rem);
+    padding-right: clamp(0.5rem, 1.2vw, 1rem);
+    box-sizing: border-box;
     font-size: clamp(1.2rem, 1.5vw, 1.8rem);
   }
 
