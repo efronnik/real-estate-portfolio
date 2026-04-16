@@ -311,6 +311,9 @@
 </template>
 
 <script setup>
+/** Same as `@media (max-width: 767px)` in `main.css` — phone-only UX (viewport meta, iOS height, offer carousel). */
+const PHONE_MAX_MEDIA = "(max-width: 767px)"
+
 const isCommissionOpen = ref(false)
 const offerIndex = ref(0)
 const proofSectionRef = ref(null)
@@ -326,6 +329,13 @@ const animatedStats = ref({
   marketYears: 0,
   commission: 0,
   languages: 0,
+})
+
+/** Baseline for all widths; `viewport-fit=cover` applied only when `PHONE_MAX_MEDIA` matches (see `applyPhoneOnlyViewportMeta`). */
+const viewportMetaContent = ref("width=device-width, initial-scale=1")
+
+useHead({
+  meta: [{ name: "viewport", content: viewportMetaContent }],
 })
 
 const statsDisplay = computed(() => {
@@ -591,7 +601,7 @@ const handleOfferCardClick = (idx) => {
 /** Same breakpoint as CSS — on phone, carousel advances only via card tap or arrow buttons. */
 const isOfferSwipeDisabledViewport = () => {
   if (typeof window === "undefined") return false
-  return window.matchMedia("(max-width: 767px)").matches
+  return window.matchMedia(PHONE_MAX_MEDIA).matches
 }
 
 const handleOfferTouchStart = (event) => {
@@ -643,6 +653,48 @@ const handleLogoError = (event) => {
 
 const getYear = () => new Date().getFullYear()
 
+/** iOS Safari: debounced sync of visual viewport height → CSS (--vv-visible-height) to reduce layout thrash when the bottom bar shows/hides. */
+let visualViewportDebounceTimer = null
+const VISUAL_VIEWPORT_DEBOUNCE_MS = 180
+
+const syncVisualViewportHeightToCss = () => {
+  if (typeof document === "undefined" || typeof window === "undefined") return
+  if (!window.matchMedia(PHONE_MAX_MEDIA).matches) {
+    document.documentElement.style.removeProperty("--vv-visible-height")
+    return
+  }
+  const vv = window.visualViewport
+  if (!vv) {
+    document.documentElement.style.removeProperty("--vv-visible-height")
+    return
+  }
+  document.documentElement.style.setProperty(
+    "--vv-visible-height",
+    `${Math.max(1, Math.round(vv.height))}px`,
+  )
+}
+
+const scheduleVisualViewportHeightSync = () => {
+  if (typeof window === "undefined") return
+  if (visualViewportDebounceTimer) {
+    window.clearTimeout(visualViewportDebounceTimer)
+  }
+  visualViewportDebounceTimer = window.setTimeout(() => {
+    syncVisualViewportHeightToCss()
+    visualViewportDebounceTimer = null
+  }, VISUAL_VIEWPORT_DEBOUNCE_MS)
+}
+
+let phoneMql = null
+
+const applyPhoneOnlyViewportMeta = () => {
+  if (typeof window === "undefined") return
+  viewportMetaContent.value = window.matchMedia(PHONE_MAX_MEDIA).matches
+    ? "width=device-width, initial-scale=1, viewport-fit=cover"
+    : "width=device-width, initial-scale=1"
+  syncVisualViewportHeightToCss()
+}
+
 onMounted(() => {
   startLoaderSignatureAnimation()
   loaderTaglineChars.value = 0
@@ -682,6 +734,22 @@ onMounted(() => {
   window.addEventListener("resize", handleMethodScrollProgress, { passive: true })
 })
 
+onMounted(() => {
+  if (typeof window === "undefined") return
+  applyPhoneOnlyViewportMeta()
+  phoneMql = window.matchMedia(PHONE_MAX_MEDIA)
+  phoneMql.addEventListener("change", applyPhoneOnlyViewportMeta)
+  const vv = window.visualViewport
+  if (vv) {
+    vv.addEventListener("resize", scheduleVisualViewportHeightSync, { passive: true })
+    vv.addEventListener("scroll", scheduleVisualViewportHeightSync, { passive: true })
+  }
+  window.addEventListener("orientationchange", scheduleVisualViewportHeightSync, {
+    passive: true,
+  })
+  window.addEventListener("resize", applyPhoneOnlyViewportMeta, { passive: true })
+})
+
 onUnmounted(() => {
   if (loaderTaglineTypeTimer) {
     clearInterval(loaderTaglineTypeTimer)
@@ -709,6 +777,19 @@ onUnmounted(() => {
   }
   window.removeEventListener("scroll", handleMethodScrollProgress)
   window.removeEventListener("resize", handleMethodScrollProgress)
+  if (typeof window !== "undefined") {
+    phoneMql?.removeEventListener("change", applyPhoneOnlyViewportMeta)
+    phoneMql = null
+    window.visualViewport?.removeEventListener("resize", scheduleVisualViewportHeightSync)
+    window.visualViewport?.removeEventListener("scroll", scheduleVisualViewportHeightSync)
+    window.removeEventListener("orientationchange", scheduleVisualViewportHeightSync)
+    window.removeEventListener("resize", applyPhoneOnlyViewportMeta)
+    if (visualViewportDebounceTimer) {
+      window.clearTimeout(visualViewportDebounceTimer)
+      visualViewportDebounceTimer = null
+    }
+    document.documentElement.style.removeProperty("--vv-visible-height")
+  }
   if (methodScrollRaf) {
     cancelAnimationFrame(methodScrollRaf)
     methodScrollRaf = null

@@ -1967,20 +1967,31 @@ body,
     --m-section-vpad: var(--m-space-lg);
     --about-mobile-stack-gap: 1.25rem;
     --footer-stack-gap: var(--m-space-md);
-    /* Только телефон: vh + svh + dvh (панель браузера) */
+    /*
+     * Только телефон: стабильная высота вьюпорта.
+     * 100dvh пересчитывается, когда Safari показывает/прячет нижнюю панель — страница дергается.
+     * 100svh = «маленький» вьюпорт при видимых панелях — без постоянного reflow при скролле (web.dev / OpenReplay).
+     */
     --viewport-fill: 100vh;
     --viewport-fill: 100svh;
-    --viewport-fill: 100dvh;
   }
 
-  /* Avoid 100vw + subpixel overflow (common iOS scroll jank); keep paint off horizontal axis */
+  /*
+   * overscroll-behavior: меньше «борьбы» документа с жестами Safari (bounce / chaining).
+   * MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overscroll-behavior
+   */
   html {
     overflow-x: hidden;
+    overscroll-behavior-y: contain;
+  }
+
+  body {
+    overscroll-behavior-y: contain;
   }
 
   .cover-hero,
   .cover-overlay {
-    min-height: var(--viewport-fill);
+    min-height: var(--vv-visible-height, var(--viewport-fill));
   }
 
   .cover-hero {
@@ -2050,7 +2061,7 @@ body,
   }
 
   .about-section {
-    min-height: var(--viewport-fill);
+    min-height: var(--vv-visible-height, var(--viewport-fill));
     height: auto;
     overflow: visible;
     gap: var(--about-mobile-stack-gap);
@@ -2188,8 +2199,8 @@ body,
   }
 
   #oferta.list-section {
-    min-height: var(--viewport-fill);
-    height: var(--viewport-fill);
+    min-height: var(--vv-visible-height, var(--viewport-fill));
+    height: var(--vv-visible-height, var(--viewport-fill));
     padding-top: var(--m-section-vpad);
     padding-bottom: var(--m-section-vpad);
     display: flex;
