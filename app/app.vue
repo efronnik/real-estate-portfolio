@@ -14,12 +14,13 @@
             class="page-loader-signature"
             aria-hidden="true"
           ></div>
-          <img
-            src="/images/loader-stroke.svg"
-            class="page-loader-stroke"
-            alt=""
-            aria-hidden="true"
-          />
+          <p
+            class="page-loader-tagline"
+            :class="{ done: loaderTaglineChars >= loaderTaglineFull.length }"
+            aria-live="polite"
+          >
+            {{ loaderTaglineDisplay }}
+          </p>
         </div>
       </div>
     </Transition>
@@ -30,7 +31,7 @@
             <h1>Patrycja Szewczyk</h1>
             <p>Ekspert inwestycji i sprzedaży · Warszawa</p>
             <img
-              src="/images/compass-log.png?v=2"
+              src="/images/compass-log.JPG?v=3"
               alt="Compass logo"
               class="hero-compass-logo"
               @error="handleLogoError"
@@ -45,7 +46,7 @@
       </section>
 
       <section id="o-mnie" class="about-section">
-        <p class="about-watermark">O MNIE</p>
+        <h2>O MNIE</h2>
         <div class="about-layout">
           <div class="about-copy">
             <p>
@@ -128,16 +129,16 @@
         </div>
 
         <div class="proof-bottom">
-          <p>
+          <h3>
             Większość właścicieli sprzedaje poniżej realnej wartości. Nie dlatego,
             że rynek jest zły - ale dlatego, że nikt im nie pokazał właściwej
             strategii i nie ustalił ceny we właściwy sposób.
-          </p>
+          </h3>
         </div>
       </section>
 
       <section id="oferta" class="list-section">
-        <h3>Co mogę dla Ciebie zrobić?</h3>
+        <h2>Co mogę dla Ciebie zrobić?</h2>
         <div class="offer-shell">
           <div
             class="offer-backdrop"
@@ -153,7 +154,7 @@
               @click="handleOfferCardClick(idx)"
             >
               <small v-if="idx === offerIndex">{{ String(offerIndex + 1).padStart(2, '0') }} / 06</small>
-              <h4>{{ offer.title }}</h4>
+              <h3>{{ offer.title }}</h3>
               <p v-if="idx === offerIndex">{{ offer.description }}</p>
             </article>
           </div>
@@ -168,10 +169,10 @@
           </div>
 
           <div class="offer-proof-copy">
-            <p>
+            <h3>
               Chcesz sprzedać nieruchomość jak najdrożej?
               Mam sprawdzoną metodę - nie przypadek.
-            </p>
+            </h3>
           </div>
         </div>
       </section>
@@ -180,7 +181,7 @@
         <div class="method-shell">
           <div class="method-shell-head">
             <div>
-              <h3>Moja autorska metoda</h3>
+              <h2>Moja autorska metoda</h2>
             </div>
           </div>
 
@@ -196,7 +197,7 @@
               </div>
               <div class="method-step-copy">
                 <small>{{ String(idx + 1).padStart(2, '0') }}</small>
-                <h4>{{ step.title }}</h4>
+                <h3>{{ step.title }}</h3>
                 <p>{{ step.description }}</p>
                 <div class="method-progress-line" aria-hidden="true">
                   <span :style="{ width: `${methodProgressValues[idx] ?? 0}%` }"></span>
@@ -210,32 +211,32 @@
       <section class="competence-section">
         <div class="competence-intro">
           <p>PROFESJONALIZM I DOŚWIADCZENIE</p>
-          <h3>MOJE KOMPETENCJE</h3>
+          <h2>MOJE KOMPETENCJE</h2>
         </div>
 
         <div class="competence-awards">
           <article>
-            <h4>17 LAT</h4>
+            <h3>17 LAT</h3>
             <p>Doświadczenia na rynku nieruchomości</p>
           </article>
           <article>
-            <h4>WYCENA</h4>
+            <h3>WYCENA</h3>
             <p>Oparta na danych transakcyjnych</p>
           </article>
           <article>
-            <h4>STRATEGIA</h4>
+            <h3>STRATEGIA</h3>
             <p>Sprzedaży dopasowana do nieruchomości</p>
           </article>
           <article>
-            <h4>REMONTY</h4>
+            <h3>REMONTY</h3>
             <p>Doświadczenie w podnoszeniu wartości</p>
           </article>
           <article>
-            <h4>HOME STAGING</h4>
+            <h3>HOME STAGING</h3>
             <p>Przygotowanie wizualne nieruchomości</p>
           </article>
           <article>
-            <h4>PROCES 1:1</h4>
+            <h3>PROCES 1:1</h3>
             <p>Prowadzenie od analizy do finalizacji</p>
           </article>
         </div>
@@ -360,43 +361,31 @@ const offerItems = [
     title: "Analiza realnej wartości nieruchomości",
     description:
       "Oceniam wartość na podstawie realnych danych transakcyjnych, nie ogólnych porównań.",
-    imagePosition: "46% 36%",
-    image: "/images/offer-1.jpg",
   },
   {
     title: "Ocena potencjału inwestycyjnego",
     description:
       "Sprawdzam, czy przygotowanie nieruchomości zwiększy wartość i czy to się realnie opłaca.",
-    imagePosition: "58% 42%",
-    image: "/images/offer-2.jpg",
   },
   {
     title: "Strategia: sprzedaż od razu lub przygotowanie",
     description:
       "Dobieram scenariusz do konkretnej nieruchomości i celu finansowego właściciela.",
-    imagePosition: "64% 38%",
-    image: "/images/offer-3.jpg",
   },
   {
     title: "Prowadzenie procesu od początku do końca",
     description:
       "Od wyceny i oferty po negocjacje oraz finalizację - prowadzisz to ze mną, nie z pośrednikami.",
-    imagePosition: "50% 58%",
-    image: "/images/offer-4.jpg",
   },
   {
     title: "Współpraca dla sprzedających i inwestorów",
     description:
       "Łączę perspektywę sprzedaży i inwestowania, dzięki czemu strategia jest bardziej precyzyjna.",
-    imagePosition: "40% 50%",
-    image: "/images/offer-5.jpg",
   },
   {
     title: "Komunikacja: PL / EN / DE / IT",
     description:
       "Komunikuję się płynnie w językach: polskim, angielskim, niemieckim i włoskim.",
-    imagePosition: "62% 52%",
-    image: "/images/offer-6.jpg",
   },
 ]
 
@@ -443,8 +432,37 @@ methodProgressValues.value = methodItems.map(() => 0)
 let methodScrollRaf = null
 let pageLoaderStartTimer = null
 let pageLoaderHideTimer = null
+let loaderTaglineTypeTimer = null
 let loaderSignatureVivus = null
 let loaderSignatureFillRaf = null
+const loaderTaglineFull = "Ekspert inwestycji i sprzedaży"
+const loaderTaglineChars = ref(0)
+const loaderTaglineDisplay = computed(() =>
+  loaderTaglineFull.slice(0, loaderTaglineChars.value)
+)
+const startLoaderTaglineTyping = () => {
+  if (loaderTaglineTypeTimer) {
+    clearInterval(loaderTaglineTypeTimer)
+    loaderTaglineTypeTimer = null
+  }
+  loaderTaglineChars.value = 0
+  loaderTaglineTypeTimer = window.setInterval(() => {
+    if (loaderTaglineChars.value >= loaderTaglineFull.length) {
+      if (loaderTaglineTypeTimer) {
+        clearInterval(loaderTaglineTypeTimer)
+        loaderTaglineTypeTimer = null
+      }
+      pageLoaderStartTimer = window.setTimeout(() => {
+        isPageLoaderLeaving.value = true
+        pageLoaderHideTimer = window.setTimeout(() => {
+          isPageLoaderVisible.value = false
+        }, 520)
+      }, 180)
+      return
+    }
+    loaderTaglineChars.value += 1
+  }, 52)
+}
 const startLoaderSignatureAnimation = async () => {
   if (typeof window === "undefined") return
   const host = loaderSignatureHostRef.value
@@ -455,29 +473,41 @@ const startLoaderSignatureAnimation = async () => {
     cancelAnimationFrame(loaderSignatureFillRaf)
     loaderSignatureFillRaf = null
   }
+  if (loaderSignatureVivus) {
+    loaderSignatureVivus.stop()
+    loaderSignatureVivus = null
+  }
+
   loaderSignatureVivus = new Vivus(host, {
     file: `/images/loader-name.svg?v=${Date.now()}`,
     type: "oneByOne",
     start: "autostart",
-    duration: 210,
+    duration: 220,
     reverseStack: true,
+    forceRender: true,
+  }, () => {
+    startLoaderTaglineTyping()
   })
-  const syncSignatureFill = () => {
+
+  const applyInkStyle = () => {
     if (!loaderSignatureVivus) return
     const mapItems = Array.isArray(loaderSignatureVivus.map) ? loaderSignatureVivus.map : []
     for (const item of mapItems) {
       const el = item?.el
       if (!(el instanceof SVGPathElement)) continue
       const progress = typeof item.progress === "number" ? item.progress : 0
-      el.style.fill = "#111111"
-      // Fill only when a stroke is almost completed to keep letterforms coherent.
-      el.style.fillOpacity = progress >= 0.98 ? "1" : "0"
+      const p = Math.max(0, Math.min(1, progress))
       el.style.stroke = "#111111"
       el.style.strokeWidth = "1.1"
+      el.style.strokeLinecap = "round"
+      el.style.strokeLinejoin = "round"
+      el.style.fill = "#111111"
+      // Fill and stroke progress together for real pen-writing feel.
+      el.style.fillOpacity = `${p}`
     }
-    loaderSignatureFillRaf = requestAnimationFrame(syncSignatureFill)
+    loaderSignatureFillRaf = requestAnimationFrame(applyInkStyle)
   }
-  loaderSignatureFillRaf = requestAnimationFrame(syncSignatureFill)
+  loaderSignatureFillRaf = requestAnimationFrame(applyInkStyle)
 }
 
 const updateMethodProgressFromScroll = () => {
@@ -592,19 +622,14 @@ const handleLogoError = (event) => {
   if (!(img instanceof HTMLImageElement)) return
   if (img.dataset.retryDone === "1") return
   img.dataset.retryDone = "1"
-  img.src = `/images/compass-log.png?v=2&retry=${Date.now()}`
+  img.src = `/images/compass-log.JPG?v=3&retry=${Date.now()}`
 }
 
 const getYear = () => new Date().getFullYear()
 
 onMounted(() => {
   startLoaderSignatureAnimation()
-  pageLoaderStartTimer = window.setTimeout(() => {
-    isPageLoaderLeaving.value = true
-    pageLoaderHideTimer = window.setTimeout(() => {
-      isPageLoaderVisible.value = false
-    }, 520)
-  }, 4200)
+  loaderTaglineChars.value = 0
 })
 
 onMounted(() => {
@@ -642,6 +667,10 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
+  if (loaderTaglineTypeTimer) {
+    clearInterval(loaderTaglineTypeTimer)
+    loaderTaglineTypeTimer = null
+  }
   if (pageLoaderStartTimer) {
     clearTimeout(pageLoaderStartTimer)
     pageLoaderStartTimer = null
