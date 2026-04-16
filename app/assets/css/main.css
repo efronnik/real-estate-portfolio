@@ -325,6 +325,7 @@ body,
   background: #e8e8e8;
   overflow: hidden;
   min-height: 100vh;
+  min-height: 100dvh;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -1963,16 +1964,25 @@ body,
     --m-section-vpad: var(--m-space-lg);
     --about-mobile-stack-gap: 1.25rem;
     --footer-stack-gap: var(--m-space-md);
+    /* Только телефон: vh + svh + dvh (панель браузера) */
+    --viewport-fill: 100vh;
+    --viewport-fill: 100svh;
+    --viewport-fill: 100dvh;
+  }
+
+  /* Avoid 100vw + subpixel overflow (common iOS scroll jank); keep paint off horizontal axis */
+  html {
+    overflow-x: hidden;
   }
 
   .cover-hero,
   .cover-overlay {
-    min-height: 100vh;
-    min-height: 100dvh;
+    min-height: var(--viewport-fill);
   }
 
   .cover-hero {
-    width: 100vw;
+    width: 100%;
+    max-width: 100%;
   }
 
   .cover-hero::before {
@@ -1980,6 +1990,11 @@ body,
     transform: none;
     background-size: cover;
     background-position: center center;
+    filter: blur(2px);
+  }
+
+  .cover-hero::after {
+    transform: translateZ(0);
   }
 
   .brands-grid,
@@ -2012,7 +2027,7 @@ body,
 
   .cover-main {
     width: min(92vw, 540px);
-    transform: translateY(-7vh);
+    transform: translateY(-1.25rem);
     padding: 0 0.5rem;
   }
 
@@ -2031,8 +2046,7 @@ body,
   }
 
   .about-section {
-    min-height: 100vh;
-    min-height: 100dvh;
+    min-height: var(--viewport-fill);
     height: auto;
     overflow: visible;
     gap: var(--about-mobile-stack-gap);
@@ -2170,8 +2184,8 @@ body,
   }
 
   #oferta.list-section {
-    min-height: 100vh;
-    min-height: 100dvh;
+    min-height: var(--viewport-fill);
+    height: var(--viewport-fill);
     padding-top: var(--m-section-vpad);
     padding-bottom: var(--m-section-vpad);
     display: flex;

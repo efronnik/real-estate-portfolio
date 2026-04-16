@@ -513,10 +513,15 @@ const startLoaderSignatureAnimation = async () => {
 const updateMethodProgressFromScroll = () => {
   const section = methodSectionRef.value
   if (!section) return
+  const sectionRect = section.getBoundingClientRect()
+  const vh = typeof window !== "undefined" ? window.innerHeight : 0
+  if (sectionRect.bottom < -120 || sectionRect.top > vh + 120) {
+    return
+  }
   const stepElements = Array.from(section.querySelectorAll(".method-step"))
   if (!stepElements.length) return
 
-  const viewportCenter = window.innerHeight / 2
+  const viewportCenter = vh / 2
   methodProgressValues.value = stepElements.map((step) => {
     if (!(step instanceof HTMLElement)) return 0
     const rect = step.getBoundingClientRect()
@@ -674,7 +679,7 @@ onMounted(() => {
 
   updateMethodProgressFromScroll()
   window.addEventListener("scroll", handleMethodScrollProgress, { passive: true })
-  window.addEventListener("resize", handleMethodScrollProgress)
+  window.addEventListener("resize", handleMethodScrollProgress, { passive: true })
 })
 
 onUnmounted(() => {
