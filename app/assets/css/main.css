@@ -266,14 +266,14 @@ body,
 
 .about-copy p {
   margin: 0;
-  max-width: 86ch;
+  max-width: 72ch;
   color: #4d473e;
-  font-size: clamp(1.2rem, 1.4vw, 1.45rem);
-  line-height: 1.85;
+  font-size: clamp(1.2rem, 1.38vw, 1.4rem);
+  line-height: 1.66;
 }
 
 .about-copy p + p {
-  margin-top: 1rem;
+  margin-top: 0.7rem;
 }
 
 .about-section {
@@ -281,7 +281,17 @@ body,
   background: #e8e8e8;
   overflow: hidden;
   min-height: 100vh;
+  height: 100vh;
   display: flex;
+  flex-direction: column;
+}
+
+.about-section h2 {
+  margin: 0 0 0.65rem;
+  font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+  line-height: 1;
+  width: 100%;
+  text-align: center;
 }
 
 .about-watermark {
@@ -304,20 +314,26 @@ body,
   z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(260px, 36%);
-  align-items: end;
+  align-items: start;
   gap: 1.8rem;
   min-height: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
   width: 100%;
 }
 
 .about-copy {
-  padding-top: 8.8rem;
+  padding-top: 0.75rem;
   align-self: start;
+  max-height: 100%;
+  overflow: auto;
 }
 
 .about-figure {
-  min-height: 700px;
-  background: url("/images/partycja-portrait.JPG") center bottom / contain no-repeat;
+  margin-top: 0.75rem;
+  min-height: 0;
+  height: 100%;
+  background: url("/images/Patrycja.jpg") center 8% / contain no-repeat;
 }
 
 .proof-section {
@@ -457,11 +473,12 @@ body,
   padding: 2rem 2.4rem;
 }
 
-.proof-bottom p {
+.proof-bottom h3 {
   margin: 0;
-  font-size: clamp(1.3rem, 2.2vw, 2.1rem);
-  line-height: 1.4;
-  color: #2f2921;
+  font-size: clamp(1.2rem, 1.9vw, 2rem);
+  line-height: 1.35;
+  color: #2b231b;
+  font-weight: 400;
 }
 
 .method-section {
@@ -1046,8 +1063,9 @@ body,
   }
 
   .about-figure {
+    margin-top: 5.2rem;
     min-height: 0;
-    height: calc(100dvh - 2.8rem);
+    height: calc(100dvh - 8rem);
     background-position: center 18%;
   }
 
