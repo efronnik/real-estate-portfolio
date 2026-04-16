@@ -250,8 +250,8 @@
             <p class="footer-brand-role">EKSPERT INWESTYCJI I SPRZEDAŻY · WARSZAWA</p>
             <img
               class="footer-brand-logo"
-              src="/images/compass-log.png"
-              alt="Logo Patrycja Szewczyk"
+              src="/images/compass-log.JPG?v=3"
+              alt="Compass logo"
               @error="handleLogoError"
             />
           </div>
