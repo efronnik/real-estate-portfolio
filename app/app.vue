@@ -28,10 +28,12 @@
       <section class="cover-hero">
         <div class="cover-overlay">
           <div class="cover-main">
-            <h1>Patrycja Szewczyk</h1>
-            <p>Ekspert inwestycji i sprzedaży · Warszawa</p>
+            <div class="cover-title-block">
+              <h1>Patrycja Szewczyk</h1>
+              <p>Ekspert inwestycji i sprzedaży · Warszawa</p>
+            </div>
             <img
-              src="/images/compass-log.JPG?v=3"
+              src="/images/compass-log.png"
               alt="Compass logo"
               class="hero-compass-logo"
               @error="handleLogoError"
@@ -250,7 +252,7 @@
             <p class="footer-brand-role">EKSPERT INWESTYCJI I SPRZEDAŻY · WARSZAWA</p>
             <img
               class="footer-brand-logo"
-              src="/images/compass-log.JPG?v=3"
+              src="/images/compass-log.png"
               alt="Compass logo"
               @error="handleLogoError"
             />
@@ -648,7 +650,7 @@ const handleLogoError = (event) => {
   if (!(img instanceof HTMLImageElement)) return
   if (img.dataset.retryDone === "1") return
   img.dataset.retryDone = "1"
-  img.src = `/images/compass-log.JPG?v=3&retry=${Date.now()}`
+  img.src = `/images/compass-log.png?retry=${Date.now()}`
 }
 
 const getYear = () => new Date().getFullYear()

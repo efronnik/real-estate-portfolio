@@ -197,7 +197,7 @@ body,
   content: "";
   position: absolute;
   inset: -24px;
-  background: url("/images/Patrycja.jpg") 34% 66% / 205% no-repeat;
+  background: url("/images/partycja-portrait.JPG") 34% 66% / 205% no-repeat;
   filter: blur(4px);
   transform: scale(1.06);
 }
@@ -213,8 +213,9 @@ body,
   min-height: 100vh;
   min-height: 100dvh;
   position: relative;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #f8f5ef;
   padding: 0 1.2rem;
   z-index: 2;
@@ -224,7 +225,12 @@ body,
   position: relative;
   text-align: center;
   width: min(900px, calc(100% - 2rem));
-  transform: translateY(-4vh);
+  transform: none;
+}
+
+.cover-title-block {
+  position: relative;
+  z-index: 2;
 }
 
 .cover-overlay h1 {
@@ -253,13 +259,16 @@ body,
 }
 
 .hero-compass-logo {
+  position: absolute;
+  top: calc(50% + clamp(7.25rem, 11vh, 9.5rem));
+  left: 50%;
   display: block;
-  margin: 0 auto;
+  margin: 0;
   width: clamp(320px, 28vw, 460px);
   max-width: 86%;
-  filter: none;
+  transform: translateX(-50%);
+  filter: brightness(0) invert(1);
   opacity: 1;
-  transform: none;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
   backface-visibility: hidden;
@@ -272,9 +281,11 @@ body,
   left: 50%;
   bottom: 2.8rem;
   transform: translateX(-50%);
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  justify-items: center;
+  align-items: center;
+  column-gap: clamp(0.8rem, 2vw, 2rem);
   padding-left: clamp(0.5rem, 2vw, 1rem);
   padding-right: clamp(0.5rem, 2vw, 1rem);
   box-sizing: border-box;
@@ -407,7 +418,7 @@ body,
   margin-top: 0.75rem;
   min-height: 0;
   height: 100%;
-  background: url("/images/Patrycja.jpg") center 8% / contain no-repeat;
+  background: url("/images/partycja-portrait.JPG") center 8% / contain no-repeat;
 }
 
 .proof-section {
@@ -1779,7 +1790,7 @@ body,
   max-width: 86%;
   margin: -1.85rem auto 0.05rem;
   object-fit: contain;
-  filter: none;
+  filter: brightness(0) invert(1);
   opacity: 1;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
@@ -2039,7 +2050,6 @@ body,
 
   .cover-main {
     width: min(92vw, 540px);
-    transform: translateY(-1.25rem);
     padding: 0 0.5rem;
   }
 
@@ -2054,7 +2064,7 @@ body,
 
   .hero-compass-logo {
     width: clamp(190px, 54vw, 260px);
-    margin-top: 0;
+    top: calc(50% + clamp(4.8rem, 13vh, 6.4rem));
   }
 
   .about-section {
