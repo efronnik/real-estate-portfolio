@@ -52,38 +52,47 @@
         <div class="about-layout">
           <div class="about-copy">
             <p>
-              Nazywam się Patrycja Szewczyk. Od lat zajmuję się inwestowaniem,
-              sprzedażą i przygotowaniem nieruchomości tak, aby realnie zarabiały.
-              Wypracowałam autorski model działania, który łączy sprzedaż
-              nieruchomości z podejściem inwestycyjnym. Dzięki temu nie działam
-              schematycznie, tylko zawsze szukam najlepszego scenariusza dla
-              konkretnej nieruchomości i klienta.
+              Jeśli szukasz nie tylko pośrednika, ale partnera, który przeprowadzi
+              Cię przez cały proces - jesteś we właściwym miejscu. Ponad 17 lat temu
+              sama przeszłam przez proces sprzedaży nieruchomości jako właściciel.
+              Znam ten proces od środka: emocje, decyzje i wyzwania. Wypracowałam
+              autorski model działania, łącząc doświadczenie rynkowe z podejściem
+              inwestycyjnym.
             </p>
-            <p>
-              Ponad 17 lat temu sama przeszłam przez proces sprzedaży nieruchomości
-              jako właściciel. Znam ten proces od środka: emocje, decyzje i
-              wyzwania. Dziś prowadzę współpracę osobiście od pierwszej analizy po
-              finalizację, łącząc doświadczenie rynkowe z podejściem inwestycyjnym.
-            </p>
-            <p>
-              Analizuję realną wartość nieruchomości na podstawie cen transakcyjnych,
-              oceniam potencjał inwestycyjny i dobieram najlepszą strategię:
-              sprzedaż bez zmian albo przygotowanie pod wyższą cenę. Nie każda
-              nieruchomość powinna być sprzedana "tak jak stoi" - czasem odpowiednie
-              przygotowanie pozwala znacząco zwiększyć jej wartość.
-            </p>
-            <p>
-              Współpracuję zarówno ze sprzedającymi, jak i inwestorami. Jeśli
-              sprzedajesz, maksymalizuję wartość Twojej nieruchomości i prowadzę
-              proces od początku do końca. Jeśli inwestujesz, znajduję nieruchomości
-              z potencjałem i analizuję ich opłacalność.
-            </p>
-            <p>
-              Łączę doświadczenie w sprzedaży, remontach, flipach i przygotowaniu
-              nieruchomości do rynku. Działam także międzynarodowo - swobodnie
-              komunikuję się po angielsku, niemiecku i włosku, co daje szerszy zasięg
-              sprzedaży i dostęp do większej grupy kupujących.
-            </p>
+            <ul class="about-highlight-list">
+              <li>Jestem architektem wnętrz</li>
+              <li>
+                Potrafię rzetelnie ocenić stan techniczny nieruchomości i oszacować
+                koszt remontu
+              </li>
+              <li>Ukończyłam Akademię Fotografii</li>
+              <li>
+                Mam dostęp do zagranicznych kupujących, biegle rozmawiam 🇮🇹 🇩🇪 🇬🇧
+              </li>
+              <li>Home staging</li>
+            </ul>
+            <div class="competence-intro">
+              <h2>MOJE KOMPETENCJE</h2>
+            </div>
+
+            <div class="competence-awards">
+              <article>
+                <h3>17 LAT</h3>
+                <p>Doświadczenia na rynku nieruchomości</p>
+              </article>
+              <article>
+                <h3>WYCENA</h3>
+                <p>Oparta na danych transakcyjnych</p>
+              </article>
+              <article>
+                <h3>STRATEGIA</h3>
+                <p>Sprzedaży dopasowana do nieruchomości</p>
+              </article>
+              <article>
+                <h3>PROCES 1:1</h3>
+                <p>Prowadzenie od analizy do finalizacji</p>
+              </article>
+            </div>
           </div>
           <div class="about-figure" aria-hidden="true"></div>
         </div>
@@ -208,41 +217,6 @@
             </article>
           </div>
         </div>
-      </section>
-
-      <section class="competence-section">
-        <div class="competence-intro">
-          <p>PROFESJONALIZM I DOŚWIADCZENIE</p>
-          <h2>MOJE KOMPETENCJE</h2>
-        </div>
-
-        <div class="competence-awards">
-          <article>
-            <h3>17 LAT</h3>
-            <p>Doświadczenia na rynku nieruchomości</p>
-          </article>
-          <article>
-            <h3>WYCENA</h3>
-            <p>Oparta na danych transakcyjnych</p>
-          </article>
-          <article>
-            <h3>STRATEGIA</h3>
-            <p>Sprzedaży dopasowana do nieruchomości</p>
-          </article>
-          <article>
-            <h3>REMONTY</h3>
-            <p>Doświadczenie w podnoszeniu wartości</p>
-          </article>
-          <article>
-            <h3>HOME STAGING</h3>
-            <p>Przygotowanie wizualne nieruchomości</p>
-          </article>
-          <article>
-            <h3>PROCES 1:1</h3>
-            <p>Prowadzenie od analizy do finalizacji</p>
-          </article>
-        </div>
-
       </section>
 
       <footer class="page-footer">

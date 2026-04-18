@@ -334,13 +334,46 @@ body,
   margin-top: 0.7rem;
 }
 
+.about-highlight-list {
+  margin: 1.15rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.62rem;
+  max-width: 70ch;
+}
+
+.about-highlight-list li {
+  position: relative;
+  padding: 0.64rem 0.75rem 0.64rem 2.15rem;
+  border: 1px solid rgba(183, 154, 99, 0.45);
+  border-radius: 10px;
+  color: #3d362d;
+  background: transparent;
+  box-shadow: 0 3px 12px rgba(150, 114, 53, 0.11);
+}
+
+.about-highlight-list li::before {
+  content: "";
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  transform: translateY(-50%) rotate(45deg);
+  background: linear-gradient(135deg, #f7e2aa 0%, #b08a49 100%);
+  box-shadow: 0 0 0 2px rgba(176, 138, 73, 0.18);
+}
+
+
 .about-section {
   position: relative;
   background: #e8e8e8;
-  overflow: hidden;
+  overflow: visible;
   min-height: 100vh;
   min-height: 100dvh;
-  height: 100vh;
+  height: auto;
   display: flex;
   flex-direction: column;
 }
@@ -356,6 +389,13 @@ body,
   text-transform: none;
   width: 100%;
   text-align: center;
+}
+
+.about-section h2 {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.4px #b79a63;
+  text-shadow: 0 2px 10px rgba(183, 154, 99, 0.22);
 }
 
 .competence-intro h2 {
@@ -403,15 +443,15 @@ body,
   gap: 1.8rem;
   min-height: 0;
   flex: 1 1 auto;
-  overflow: hidden;
+  overflow: visible;
   width: 100%;
 }
 
 .about-copy {
   padding-top: 0.75rem;
   align-self: start;
-  max-height: 100%;
-  overflow: auto;
+  max-height: none;
+  overflow: visible;
 }
 
 .about-figure {
@@ -2008,12 +2048,11 @@ body,
   }
 
   .cover-hero::before {
-    inset: 0;
-    transform: none;
+    inset: -12px;
+    transform: scale(1.04);
     background-size: cover;
     background-position: center center;
-    /* Blur is very expensive on iOS compositor during scroll; gradient overlay carries contrast */
-    filter: none;
+    filter: blur(4px);
   }
 
   .cover-hero::after {
