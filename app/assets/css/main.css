@@ -430,12 +430,14 @@ body,
 
 .competence-intro h3 {
   margin: 0 0 var(--about-copy-vgap, 1.15rem);
-  color: #1f1a15;
-  -webkit-text-fill-color: #1f1a15;
+  color: #2f2a24;
+  -webkit-text-fill-color: #2f2a24;
   -webkit-text-stroke: 0;
   text-shadow: none;
-  font-size: clamp(1.22rem, 2.15vw, 1.58rem);
-  font-weight: 500;
+  font-family: var(--font-premium-serif);
+  font-size: clamp(1.18rem, 1.36vw, 1.37rem);
+  font-weight: 600;
+  line-height: 1.64;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -1252,6 +1254,12 @@ body,
   .about-highlight-list li strong {
     font-size: inherit;
     color: #2f2a24;
+  }
+
+  .about-copy .competence-intro h3 {
+    font-size: clamp(0.97rem, 1.25vw, 1.13rem);
+    line-height: 1.475;
+    letter-spacing: 0.14em;
   }
 
   .about-figure {
@@ -2494,8 +2502,9 @@ body,
   }
 
   .competence-intro h3 {
-    font-size: clamp(1.12rem, 4vw, 1.32rem);
-    letter-spacing: 0.12em;
+    font-size: clamp(1.18rem, 1.36vw, 1.37rem);
+    line-height: 1.64;
+    letter-spacing: 0.14em;
   }
 
   .competence-awards h3 {
