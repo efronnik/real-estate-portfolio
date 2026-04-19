@@ -51,48 +51,60 @@
         <h2>O MNIE</h2>
         <div class="about-layout">
           <div class="about-copy">
-            <p>
+            <p class="about-copy-lead">
               Jeśli szukasz nie tylko pośrednika, ale partnera, który przeprowadzi
-              Cię przez cały proces - jesteś we właściwym miejscu. Ponad 17 lat temu
-              sama przeszłam przez proces sprzedaży nieruchomości jako właściciel.
-              Znam ten proces od środka: emocje, decyzje i wyzwania. Wypracowałam
-              autorski model działania, łącząc doświadczenie rynkowe z podejściem
-              inwestycyjnym.
+              Cię przez cały proces — jesteś we właściwym miejscu.
             </p>
-            <ul class="about-highlight-list">
-              <li>Jestem architektem wnętrz</li>
-              <li>
-                Potrafię rzetelnie ocenić stan techniczny nieruchomości i oszacować
-                koszt remontu
-              </li>
-              <li>Ukończyłam Akademię Fotografii</li>
-              <li>
-                Mam dostęp do zagranicznych kupujących, biegle rozmawiam 🇮🇹 🇩🇪 🇬🇧
-              </li>
-              <li>Home staging</li>
-            </ul>
+            <p>
+              Ponad 17 lat temu sama przeszłam przez sprzedaż nieruchomości jako
+              właściciel. Dzięki temu doskonale rozumiem emocje, decyzje i wyzwania,
+              które towarzyszą temu procesowi.
+            </p>
+            <p>
+              Dziś pracuję z klientami, łącząc doświadczenie rynkowe z podejściem
+              inwestycyjnym. Wypracowałam autorski model działania, który pozwala nie
+              tylko skutecznie sprzedać nieruchomość, ale przede wszystkim osiągnąć
+              najlepszy możliwy rezultat finansowy.
+            </p>
             <div class="competence-intro">
-              <h2>MOJE KOMPETENCJE</h2>
+              <h3>MOJE KOMPETENCJE</h3>
             </div>
-
-            <div class="competence-awards">
-              <article>
-                <h3>17 LAT</h3>
-                <p>Doświadczenia na rynku nieruchomości</p>
-              </article>
-              <article>
-                <h3>WYCENA</h3>
-                <p>Oparta na danych transakcyjnych</p>
-              </article>
-              <article>
-                <h3>STRATEGIA</h3>
-                <p>Sprzedaży dopasowana do nieruchomości</p>
-              </article>
-              <article>
-                <h3>PROCES 1:1</h3>
-                <p>Prowadzenie od analizy do finalizacji</p>
-              </article>
-            </div>
+            <ul class="about-highlight-list about-competence-list">
+              <li>
+                <strong>Ponad 17 lat</strong> — doświadczenia na rynku nieruchomości
+              </li>
+              <li>
+                <strong>Wycena</strong> — oparta na danych transakcyjnych
+              </li>
+              <li>
+                <strong>Strategia</strong> — sprzedaży dopasowana do nieruchomości
+              </li>
+              <li>
+                <strong>Remonty i flipy</strong> — doświadczenie w podnoszeniu wartości;
+                potrafię ocenić stan techniczny i oszacować koszt remontu
+              </li>
+              <li>
+                <strong>Home staging i architekt wnętrz</strong> — przygotowanie
+                wizualne nieruchomości
+              </li>
+              <li>
+                <strong>Proces 1:1</strong> — prowadzenie od analizy do finalizacji
+              </li>
+              <li>
+                <strong>Akademia Fotografii</strong> — ukończony kurs; sesje i materiały
+                promocyjne
+              </li>
+              <li>
+                <strong>Zagraniczni kupujący</strong> — dostęp do sieci nabywców;
+                biegle rozmawiam 🇮🇹 🇩🇪 🇬🇧
+              </li>
+              <li>
+                <strong>Podejście inwestycyjne</strong> — nie tylko sprzedaż
+              </li>
+              <li>
+                <strong>Butikowa agencja</strong> — jakość, nie ilość
+              </li>
+            </ul>
           </div>
           <div class="about-figure" aria-hidden="true"></div>
         </div>
@@ -217,6 +229,14 @@
             </article>
           </div>
         </div>
+      </section>
+
+      <section class="closing-cta" aria-label="Zaproszenie do współpracy">
+        <p class="closing-cta-text">
+          Bo dobra decyzja na rynku nieruchomości rzadko rodzi się nie z przypadku.
+          <strong>Rodzi się z wiedzy!</strong>
+          <span class="closing-cta-invite">Zapraszam do współpracy</span>
+        </p>
       </section>
 
       <footer class="page-footer">
@@ -349,9 +369,10 @@ const offerItems = [
       "Oceniam wartość na podstawie realnych danych transakcyjnych, nie ogólnych porównań.",
   },
   {
-    title: "Ocena potencjału inwestycyjnego",
+    title:
+      "Potrafię rzetelnie ocenić stan techniczny nieruchomości i oszacować koszt remontu",
     description:
-      "Sprawdzam, czy przygotowanie nieruchomości zwiększy wartość i czy to się realnie opłaca.",
+      "We współpracy ze sprawdzoną firmą remontową realnie wspieram klientów w bezpiecznym zakupie mieszkań do remontu.",
   },
   {
     title: "Strategia: sprzedaż od razu lub przygotowanie",
@@ -359,17 +380,17 @@ const offerItems = [
       "Dobieram scenariusz do konkretnej nieruchomości i celu finansowego właściciela.",
   },
   {
-    title: "Prowadzenie procesu od początku do końca",
+    title: "Pełne bezpieczeństwo prawne",
     description:
-      "Od wyceny i oferty po negocjacje oraz finalizację - prowadzisz to ze mną, nie z pośrednikami.",
+      "Kompletuję dokumentację i czuwam nad całym procesem — aż do podpisania aktu notarialnego.",
   },
   {
-    title: "Współpraca dla sprzedających i inwestorów",
+    title: "Sesja zdjęciowa, wideo i kampania promocyjna",
     description:
-      "Łączę perspektywę sprzedaży i inwestowania, dzięki czemu strategia jest bardziej precyzyjna.",
+      "Sesja zdjęciowa — wykonuję ją osobiście. Jako absolwentka Akademii Fotografii. Wideo prezentacja. Kampania promocyjna.",
   },
   {
-    title: "Komunikacja: PL / EN / DE / IT",
+    title: "Komunikacja: 🇵🇱 🇬🇧 🇩🇪 🇮🇹",
     description:
       "Komunikuję się płynnie w językach: polskim, angielskim, niemieckim i włoskim.",
   },
@@ -379,7 +400,7 @@ const methodItems = [
   {
     title: "Analiza cen transakcyjnych",
     description:
-      "Nie porównuję ofert - analizuję realne ceny sprzedaży. Wiesz dokładnie, ile jest warta Twoja nieruchomość.",
+      "Nie opieram się na cenach ofertowych — analizuję rzeczywiste ceny transakcyjne.",
     tags: ["Ceny transakcyjne", "Pozycjonowanie ceny", "Wartość realna"],
     image: "/images/method-illustration-1.svg",
   },
@@ -400,7 +421,7 @@ const methodItems = [
   {
     title: "Etapowe monitorowanie ceny",
     description:
-      "Cena jest korygowana na każdym etapie zgodnie z rynkiem - żeby nie stracić ani złotówki.",
+      "Analizujemy wyniki razem, reagujemy na sygnały rynku i wprowadzamy zmiany zanim pojawi się problem. Jeśli coś wymaga korekty — działam szybko.",
     tags: ["Kontrola popytu", "Dane rynkowe", "Szybka korekta"],
     image: "/images/method-illustration-4.svg",
   },
