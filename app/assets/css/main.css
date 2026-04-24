@@ -2147,8 +2147,8 @@ body,
     --about-mobile-stack-gap: 1.25rem;
     --footer-stack-gap: var(--m-space-md);
     /*
-     * Высота экрановых секций: --vh = 1% window.innerHeight (app.vue, только ≤767px).
-     * Fallback 1vh до гидрации; избегаем 100dvh — Safari пересчитывает при панели инструментов.
+     * Полноэкранные блоки: сначала --vh (app.vue, только ≤767px), затем 100svh — стабильная
+     * «малая» высота вьюпорта в Safari при появлении/скрытии адресной строки (без dvh-рывков).
      */
   }
 
@@ -2168,6 +2168,7 @@ body,
   .cover-hero,
   .cover-overlay {
     min-height: calc(var(--vh, 1vh) * 100);
+    min-height: 100svh;
   }
 
   .cover-hero {
@@ -2235,11 +2236,12 @@ body,
 
   .hero-compass-logo {
     width: clamp(190px, 54vw, 260px);
-    top: calc(50% + clamp(4.8rem, 13vh, 6.4rem));
+    top: calc(50% + clamp(4.8rem, 13svh, 6.4rem));
   }
 
   .about-section {
     min-height: calc(var(--vh, 1vh) * 100);
+    min-height: 100svh;
     height: auto;
     overflow: visible;
     gap: var(--about-mobile-stack-gap);
@@ -2370,6 +2372,8 @@ body,
   #oferta.list-section {
     min-height: calc(var(--vh, 1vh) * 100);
     height: calc(var(--vh, 1vh) * 100);
+    min-height: 100svh;
+    height: 100svh;
     padding-top: var(--m-section-vpad);
     padding-bottom: var(--m-section-vpad);
     display: flex;

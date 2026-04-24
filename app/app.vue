@@ -280,7 +280,7 @@
                 <path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.6 1.7-1.6H16.7V3.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7v3h3v8h3.5z" fill="currentColor"/>
               </svg>
             </a>
-            <a class="footer-social-link footer-social-icon" href="https://www.instagram.com/" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+            <a class="footer-social-link footer-social-icon" href="https://www.instagram.com/compasnieruchomosci?igsh=bXg0MWd0aW1kMGZh" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" role="img" focusable="false" aria-hidden="true">
                 <rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="1.8"/>
                 <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
@@ -651,14 +651,17 @@ const handleLogoError = (event) => {
 const getYear = () => new Date().getFullYear()
 
 /**
- * Classic mobile full-height: --vh = 1% of window.innerHeight (stable vs dynamic 100vh on iOS).
- * CSS uses calc(var(--vh, 1vh) * 100). Only set when PHONE_MAX_MEDIA matches.
+ * --vh = 1% of innerHeight, fallback where `100svh` is unsupported.
+ * Do not tie this to visualViewport / URL-bar height changes: that re-lays out
+ * full-height sections and makes the hero “breathe” while scrolling on iOS.
+ * Refresh only when layout width changes (orientation, crossing the phone breakpoint).
  */
-let viewportVhRaf = null
+let phoneInnerWidthBaseline = 0
 
 const setViewportVhUnit = () => {
   if (typeof document === "undefined" || typeof window === "undefined") return
   if (!window.matchMedia(PHONE_MAX_MEDIA).matches) {
+    phoneInnerWidthBaseline = 0
     document.documentElement.style.removeProperty("--vh")
     return
   }
@@ -668,14 +671,18 @@ const setViewportVhUnit = () => {
   )
 }
 
-/** Coalesce visualViewport events to one layout write per frame (Safari toolbar). */
-const scheduleSetViewportVhUnit = () => {
-  if (typeof window === "undefined") return
-  if (viewportVhRaf !== null) return
-  viewportVhRaf = requestAnimationFrame(() => {
+const syncPhoneViewportHeightUnit = () => {
+  if (typeof document === "undefined" || typeof window === "undefined") return
+  if (!window.matchMedia(PHONE_MAX_MEDIA).matches) {
     setViewportVhUnit()
-    viewportVhRaf = null
-  })
+    return
+  }
+  const w = window.innerWidth
+  if (phoneInnerWidthBaseline !== 0 && w === phoneInnerWidthBaseline) {
+    return
+  }
+  phoneInnerWidthBaseline = w
+  setViewportVhUnit()
 }
 
 let phoneMql = null
@@ -685,7 +692,7 @@ const applyPhoneOnlyViewportMeta = () => {
   viewportMetaContent.value = window.matchMedia(PHONE_MAX_MEDIA).matches
     ? "width=device-width, initial-scale=1, viewport-fit=cover"
     : "width=device-width, initial-scale=1"
-  setViewportVhUnit()
+  syncPhoneViewportHeightUnit()
 }
 
 onMounted(() => {
@@ -732,11 +739,6 @@ onMounted(() => {
   applyPhoneOnlyViewportMeta()
   phoneMql = window.matchMedia(PHONE_MAX_MEDIA)
   phoneMql.addEventListener("change", applyPhoneOnlyViewportMeta)
-  const vv = window.visualViewport
-  if (vv) {
-    vv.addEventListener("resize", scheduleSetViewportVhUnit, { passive: true })
-    vv.addEventListener("scroll", scheduleSetViewportVhUnit, { passive: true })
-  }
   window.addEventListener("orientationchange", applyPhoneOnlyViewportMeta, {
     passive: true,
   })
@@ -773,14 +775,8 @@ onUnmounted(() => {
   if (typeof window !== "undefined") {
     phoneMql?.removeEventListener("change", applyPhoneOnlyViewportMeta)
     phoneMql = null
-    window.visualViewport?.removeEventListener("resize", scheduleSetViewportVhUnit)
-    window.visualViewport?.removeEventListener("scroll", scheduleSetViewportVhUnit)
     window.removeEventListener("orientationchange", applyPhoneOnlyViewportMeta)
     window.removeEventListener("resize", applyPhoneOnlyViewportMeta)
-    if (viewportVhRaf !== null) {
-      cancelAnimationFrame(viewportVhRaf)
-      viewportVhRaf = null
-    }
     document.documentElement.style.removeProperty("--vh")
   }
   if (methodScrollRaf) {
